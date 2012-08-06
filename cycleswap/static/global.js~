@@ -1,0 +1,15 @@
+/* album_sort.js 
+
+*/
+
+(function(){
+
+	function callthis(){
+		console.log("this was called.")
+	}
+
+
+window.callthis = callthis;
+
+}());
+
