@@ -5,7 +5,7 @@ from graph.models import *
 import json
 
 
-### management utils ###
+### setup utils ###
 
 def import_courses():
 	# import data as json, convert it to a list of course dicts
@@ -23,6 +23,9 @@ def create_students():
 	for i in range(0,7):
 		new_student = Student(name=names[i],email=emails[i])
 		new_student.save()
+
+
+
 
 ### views ###
 
@@ -44,3 +47,34 @@ def register_ajax(request):
 	password = request.POST['password']
 	create_new_user(name,email,password)
 	return HttpResponse('registered')
+
+def save_courses_ajax(request):
+	user = request.user
+	if user.is_authenticated():
+		student = user.student
+		# load preferences, which are a list of dicts including course name, registered boolean, and rank
+		preferences = json.loads(request.POST['preferences'])
+		# delete previous preferences
+		student.courses.clear()
+		# and create new ones
+		for preference in preferences:
+			course_name = preference.name
+			course = Course.objects.get(name=course_name)
+			registered = (preference['registered'] == 'True')
+			rank = preference['rank']
+			new_pref = Course_preference(student=student,course=course,registered=registered,rank=rank)
+			new_pref.save()
+
+def get_courses_ajax(request):
+	user = request.user
+	data = {}
+	if user.is_authenticated():
+		preferences = user.student.preferences
+		for preference in preferences:
+			course = preference.course
+			data[course.name] = {'title': course.title, 'name': course.name, 'description': course.description, 'rank': preference.rank, 'registered': preference.registered}
+	return HttpResponse(json.dumps(data))
+
+def get_course_list_ajax(request):
+	list_of_courses = [str(course).replace(" ","",1) for course in Course.objects.all()]
+	return HttpResponse(json.dumps(list_of_courses))

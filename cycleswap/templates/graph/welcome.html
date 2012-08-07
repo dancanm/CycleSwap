@@ -1,22 +1,41 @@
 <html>
-<title> CycleSwap.net helps get you into the courses you can't register for on banner. </title>
+<title> CourseSwap.co - We facilitate elaborate course trades at Brown. </title>
 <head>
 	<script type="text/javascript" src="/public/jquery.js"></script>
+	<script type="text/javascript" src="/public/jquery-ui.js"></script>
 	<script type="text/javascript" src="/public/global.js"></script>
 	<script type="text/javascript" src="/public/utils.js"></script>
+	<link type="text/css" rel="stylesheet" href="/public/welcome.css"></link>
 </head>
-<body>
+<body background='public/images/bg.png'>
 <script type="text/javascript">
 window.csrfTOKEN = '{{ csrf_token }}';
 $(document).ready(function(){
 	setupSite();
 });
 </script>
-<center>
 
-	<div id='welcome_txt' style='display:block'> Welcome to cycleswap! </div>
-	<div id='register_txt'> Click here to register. </div>
+	<div id='logo'><img src='/public/images/logo.png'></div>
 
-</center>
+	<center>
+		<div id='app_body'>
+
+			<div id='app_left'>
+				<div id='courses_want'>
+				</div>
+				<div id='courses_registered'>
+				</div>
+			</div>
+
+			<div id='app_right'>
+				<div id='preference_interface'>
+				</div>
+			</div>
+		</div>
+	</center>
+
+
+	<!--<div id='register_txt'> Click here to register. </div>-->
+
 </body>
 </html>

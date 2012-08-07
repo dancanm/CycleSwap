@@ -16,5 +16,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'graph.views.welcome'),
     url(r'^register-ajax/', 'graph.views.register_ajax'),
+    url(r'^save-courses-ajax/', 'graph.views.save_courses_ajax'),
+    url(r'^get-courses-ajax/', 'graph.views.get_courses_ajax'),
+    url(r'^get-course-list-ajax/', 'graph.views.get_course_list_ajax'),
 
 )

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Student (models.Model):
 	name = models.CharField(max_length=30)
-	user = models.OneToOneField(User,blank=True,null=True)
+	user = models.OneToOneField(User,related_name='student',blank=True,null=True)
 	courses = models.ManyToManyField('Course', through='Course_preference',blank=True,null=True)
 
 	def __unicode__(self):
@@ -23,7 +23,7 @@ class Course_preference (models.Model):
 	student = models.ForeignKey('Student', related_name='preferences')
 	course = models.ForeignKey('Course', related_name='preferences')
 	registered = models.BooleanField()
-	utility = models.IntegerField(blank=True,null=True)
+	rank = models.IntegerField(blank=True,null=True)
 
 	def __unicode__(self):
 		return self.student.__unicode__() + " -> " + self.course.__unicode__()
