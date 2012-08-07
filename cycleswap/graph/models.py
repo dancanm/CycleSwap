@@ -24,6 +24,7 @@ class Course_preference (models.Model):
 	course = models.ForeignKey('Course', related_name='preferences')
 	registered = models.BooleanField()
 	rank = models.IntegerField(blank=True,null=True)
+	is_in_cycle = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.student.__unicode__() + " -> " + self.course.__unicode__()
