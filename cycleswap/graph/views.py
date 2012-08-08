@@ -56,8 +56,10 @@ def log_in(request):
 	user = authenticate(email=email, password=password)
 	if user:
 		login(request,user)
+		student = user.student
+		return HttpResponse(json.dumps(student.jsonify()))
 	else:
-		return HttpResponse('Invalid email/password!')
+		return HttpResponse(json.dumps({'error':'invalid email/password!'}))
 def log_out(request):
 	return HttpResponseRedirect('/')
 def save_courses_ajax(request):
