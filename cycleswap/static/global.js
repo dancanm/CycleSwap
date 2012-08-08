@@ -21,6 +21,28 @@
         $('#registered_results').append(registered_autofill2);
         $('#registered_results').append(registered_autofill3);
 
+   
+        //login events
+        $("#login .h_description").click(function(){
+            var $t =  $("#login table");
+            if($t.css('display') === 'none'){
+                $t.show();
+                $("#login").animate({
+                    'width' : '90%'
+                },200,function(){
+
+                });
+            }else{
+                $t.hide();
+                $("#login").animate({
+                    'width' : '45%'
+                },200,function(){
+                    
+                });
+            }
+        });
+
+
    }
 
 	function setupUserCourses(data){

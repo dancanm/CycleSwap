@@ -2,17 +2,24 @@
 
 */
 
+div{
+	font-family:AmericanTypewriter;
+}
 #login{
-	position:absolute;
-	top:30px;
-	right:65px;
 	padding:15px;
-	width:300px;
-	height:20px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#login_container{
+	position: absolute;
+	right: 80px;
+	width: 300px;
+	top: 50px;
 }
 #login .h_description{
 	top:-18px;
 	cursor:pointer;
+	text-align: center;
 }
 #login .h_description:hover{
 	background-color:rgba(100,100,100,.5);

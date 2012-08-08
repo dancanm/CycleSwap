@@ -16,31 +16,33 @@ $(document).ready(function(){
 
 	<div id='logo'><img src='/public/images/logo.png'></div>
 
-	<div id="login" class="shadow_box">
-		<div class="h_description">Log in</div>
-		<table style="display:none">
-			<tr style="display:none;">
-				<td><span>Name</span></td>
-				<td><input type="text" id="name" name="Name"></td>
-			</tr>
-			<tr>
-				<td><span>Email</span></td>
-				<td><input type="text" id="email" name="Email" style="display:block;"></td>
-			</tr>
-			<tr>
-				<td><span>Password</span></td>
-				<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
-			</tr>
-			<tr style="display:none;">
-				<td><span>Password Again</span></td>
-				<td><input type="password" id="password_again" name="Password again" ></td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" value="log in">
-				</td>
-			</tr>
-		</table>
+	<div id="login_container">
+		<div id="login" class="shadow_box" style="height:20px; width:45%">
+			<div class="h_description">Log in</div>
+			<table style="display:none">
+				<tr style="display:none;">
+					<td><span>Name</span></td>
+					<td><input type="text" id="name" name="Name"></td>
+				</tr>
+				<tr>
+					<td><span>Email</span></td>
+					<td><input type="text" id="email" name="Email" style="display:block;"></td>
+				</tr>
+				<tr>
+					<td><span>Password</span></td>
+					<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
+				</tr>
+				<tr style="display:none;">
+					<td><span>Password Again</span></td>
+					<td><input type="password" id="password_again" name="Password again" ></td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" value="log in">
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<center>
 		<div id='app_body'>
