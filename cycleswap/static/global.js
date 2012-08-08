@@ -59,21 +59,34 @@
         });
 
         //clicking
-        $("#login #submit").click(logIn);
+        $("#login #submit").click(function(){
+            logIn();
+        });
    }
    function logIn(){
     $.ajax({
-        url : '/log-in',
+        url : '/log-in/',
         type : 'POST',
-        data : {'email' : $("#email").val(), 'password':$("#password").val()},
+        data : {
+            'email' : $("#email").val(),
+            'password':$("#password").val(),
+            'csrfmiddlewaretoken': csrfTOKEN,
+        },
+        dataType:'json',
         success:function(data){
-            console.log(data);
+            if(data.error){
+                console.log('login unsuccessful');
+                //error message
+            }else{
+                setupUserCourses(data.courses);
+            }
         }
     });
    }
 
-	function setupUserCourses(data){
-		/* set up courses */
+   //courses will be a list of jsonified course_preferences
+	function setupUserCourses(courses){
+		
 	}
 
 	function getUserCourses(){
@@ -124,25 +137,6 @@
             }
         });
     }
-
-	function logIn(){
-		/* if course data exists, logging in will override it. are you sure you want to log in?
-		if so, POST register-ajax, if not, undo login attempt. */
-		$.ajax({
-            type: 'POST',
-            url: '/log-in-ajax/',
-            data: {	
-                'csrfmiddlewaretoken': csrfTOKEN,
-                'email': $('#email_input').val(),
-                'password': $('#password_input').val(),
-            },
-            success: function(data){
-            	console.log('User logged in.');
-            	/* reset login fields */
-                setupUserCourses(data);
-            }
-        });
-	}
 
 	function setupSite(){
 		setupUI();

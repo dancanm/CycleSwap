@@ -8,7 +8,12 @@ class Student (models.Model):
 
 	def __unicode__(self):
 		return self.name
-
+	def jsonify(self):
+		preferences = Course_preference.objects.filter(student=self).order_by('-rank')
+		return {
+			'name' : self.name,
+			'courses' : [cp.jsonify() for cp in preferences]
+		}
 class Course (models.Model):
 	name = models.CharField(max_length=10)
 	title = models.CharField(max_length=100)
@@ -16,7 +21,12 @@ class Course (models.Model):
 
 	def __unicode__(self):
 		return self.name + ": " + self.title
-
+	def jsonify(self):
+		return {
+			'name' : self.name,
+			'title' : self.title,
+			'description' : self.description
+		}
 # Intermediary between Student and Class
 # Keeps track of class preferences and ordering
 class Course_preference (models.Model):
@@ -28,3 +38,11 @@ class Course_preference (models.Model):
 
 	def __unicode__(self):
 		return self.student.__unicode__() + " -> " + self.course.__unicode__()
+
+	def jsonify(self):
+		return {
+			'rank' : self.rank,
+			'registered' : self.registered,
+			'course' : self.course.jsonify(),
+			'is_in_cycle' : self.is_in_cycle
+		}
