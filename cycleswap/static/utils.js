@@ -1,3 +1,22 @@
+// autoComplete
+//
+//  Args:
+//      val_list : list of strings to match the query
+//      query : string to autocomplete
+//      num_results : number of results to return
+//  Returns: a list of num_results strings from val_list 
+function autoComplete(val_list,query, num_results){
+        // new function for String => contains
+        String.prototype.contains = function(n) { return (this.toLowerCase()).indexOf(n.toLowerCase()) != -1; };
+        //var val_array = val_list.split(",");
+        var filtered_vals = val_list.filter(function(val){
+            return val.contains(query);
+        });
+        var sub_array = filtered_vals.slice(0, num_results);
+        return filtered_vals
+}
+
+
 //  createElem
 //      Desc: makes any DOM element and gives it attributes and/or innerHTML, and can append other objects to it
 //      Args: 
@@ -7,7 +26,6 @@
 //          d: list of already-defined elements to append to this element, in the order they're listed
 //      Called by: any functions that generate HTML, usually using ajax data (ex: jam page, profile page)
 //      Returns: the finished element
-
 function createElem(a, b, c, d){ // artur's
     var x, i, e, h = a === 'a-external' ? true : false;
 

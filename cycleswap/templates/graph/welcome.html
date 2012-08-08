@@ -22,13 +22,27 @@ $(document).ready(function(){
 
 			<div id='app_left'>
 				<div id='courses_want'>
+					<div id='courses_i_want_txt', class='h_description'>
+						Courses I want to get into:
+					</div>
+					<input id='course_want_input', class='autocomplete_this', type='text'>
+					<div id='want_results' class='results'></div>
 				</div>
 				<div id='courses_registered'>
+					<div id='courses_im_registered_for_txt', class='h_description'>
+						Courses I'm registered for:
+					</div>
+					<input id='course_registered_input', class='autocomplete_this', type='text'>
+					<div id='registered_results' class='results'></div>
 				</div>
 			</div>
 
 			<div id='app_right'>
 				<div id='preference_interface'>
+					<div id='drag_and_drop_prefs_txt' class='h_description'>
+						Drag & Drop Preferences:
+					</div>
+					<img id='submit_button' src='/public/images/submit.png'>
 				</div>
 			</div>
 		</div>

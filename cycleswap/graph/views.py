@@ -65,7 +65,7 @@ def save_courses_ajax(request):
 			new_pref = Course_preference(student=student,course=course,registered=registered,rank=rank)
 			new_pref.save()
 
-def get_courses_ajax(request):
+def get_user_courses_ajax(request):
 	user = request.user
 	data = {}
 	if user.is_authenticated():
