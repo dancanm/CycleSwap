@@ -47,19 +47,18 @@ def register_ajax(request):
 	email = request.POST['email']
 	password = request.POST['password']
 	create_new_user(name,email,password)
-    login(request, user)
+	login(request, user)
 	return HttpResponse('registered')
 
 def log_in(request):
 	email = request.POST['email']
 	password = request.POST['password']
-    user = authenticate(email=email, password=password)
-    if user:
-    	login(request,user)
+	user = authenticate(email=email, password=password)
+	if user:
+		login(request,user)
 	else:
 		return HttpResponse('Invalid email/password!')
 def log_out(request):
-	logout(request):
 	return HttpResponseRedirect('/')
 def save_courses_ajax(request):
 	user = request.user

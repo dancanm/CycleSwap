@@ -142,7 +142,6 @@ input{
     -webkit-box-shadow:inset 0px 0px 10px  #5E5E5E;
     box-shadow:inset 0px 0px 10px #5E5E5E;
     border-radius:10px;
-    padding:13px;
     font-family: AmericanTypewriter;
     font-weight:heavy;
     text-align: center;
@@ -151,6 +150,9 @@ input{
     font-size:10px;
     white-space:nowrap;
     overflow:hidden;
+    height:27px;
+    width:197px;
+    text-align:left;
 }
 
 .results{
