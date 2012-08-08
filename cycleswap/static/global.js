@@ -7,15 +7,6 @@
 (function(){
 
 	function setupUI(){
-<<<<<<< HEAD
-        $('#courses_registered').append(createElem('div',{'id':'courses_im_registered_for_txt', 'className':'h_description'},"Courses I'm registered for:"));
-        $('#courses_registered').append(createElem('input',{'id':'course_registered_input', 'className': 'autocomplete_this', 'type':'text'},"Courses I'm registered for:"));
-        $('#courses_want').append(createElem('div',{'id':'courses_i_want_text', 'className':'h_description'},"Courses I want to get into:"));
-        $('#courses_want').append(createElem('input',{'id':'course_want_input', 'className': 'autocomplete_this', 'type':'text'}));
-        $('#preference_interface').append(createElem('div',{'id':'drag_and_drop_prefs_txt', 'className':'h_description'},"Drag & Drop Preferences"));
-	
-        
-=======
         var want_autofill1 = createElem('div',{'id':'want_autofill_1','className':'autofill'});
         var want_autofill2 = createElem('div',{'id':'want_autofill_2','className':'autofill'});
         var want_autofill3 = createElem('div',{'id':'want_autofill_3','className':'autofill'});
@@ -30,9 +21,7 @@
         $('#registered_results').append(registered_autofill2);
         $('#registered_results').append(registered_autofill3);
 
-	   
->>>>>>> fbb1132dd054adf742ba927d26a3e15f91fe3ca1
-    }
+   }
 
 	function setupUserCourses(data){
 		/* set up courses */
