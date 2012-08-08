@@ -7,6 +7,7 @@
 (function(){
 
 	function setupUI(){
+<<<<<<< HEAD
         $('#courses_registered').append(createElem('div',{'id':'courses_im_registered_for_txt', 'className':'h_description'},"Courses I'm registered for:"));
         $('#courses_registered').append(createElem('input',{'id':'course_registered_input', 'className': 'autocomplete_this', 'type':'text'},"Courses I'm registered for:"));
         $('#courses_want').append(createElem('div',{'id':'courses_i_want_text', 'className':'h_description'},"Courses I want to get into:"));
@@ -14,25 +15,65 @@
         $('#preference_interface').append(createElem('div',{'id':'drag_and_drop_prefs_txt', 'className':'h_description'},"Drag & Drop Preferences"));
 	
         
+=======
+        var want_autofill1 = createElem('div',{'id':'want_autofill_1','className':'autofill'});
+        var want_autofill2 = createElem('div',{'id':'want_autofill_2','className':'autofill'});
+        var want_autofill3 = createElem('div',{'id':'want_autofill_3','className':'autofill'});
+        var registered_autofill1 = createElem('div',{'id':'registered_autofill1','className':'autofill'});
+        var registered_autofill2 = createElem('div',{'id':'registered_autofill2','className':'autofill'});
+        var registered_autofill3 = createElem('div',{'id':'registered_autofill3','className':'autofill'});
+       // $('.autofill').hide();
+        $('#want_results').append(want_autofill1);
+        $('#want_results').append(want_autofill2);
+        $('#want_results').append(want_autofill3);
+        $('#registered_results').append(registered_autofill1);
+        $('#registered_results').append(registered_autofill2);
+        $('#registered_results').append(registered_autofill3);
+
+	   
+>>>>>>> fbb1132dd054adf742ba927d26a3e15f91fe3ca1
     }
 
-	function setupCourses(data){
+	function setupUserCourses(data){
 		/* set up courses */
 	}
 
-	function getCourses(){
+	function getUserCourses(){
 		$.ajax({
             type: 'GET',
-            url: '/get-courses-ajax/',
+            url: '/get-user-courses-ajax/',
             data: {	
                 'csrfmiddlewaretoken': csrfTOKEN,
             },
             success: function(data){
                 console.log('Retrieved courses.');
-                setupCourses(data);
+                setupUserCourses(data);
             }
         });
 	}
+
+    function watchInputs(val_list){
+        $('#course_want_input').keydown(function(e){
+            clearTimeout( CoursesWant );
+            var CoursesWant = setTimeout(function(){
+                var acl = autoComplete(val_list, $('#course_want_input').val(), 3);
+                for (var i=1; i<acl.length; i++){
+                    $('#want_autofill_' + i).html(acl[i-1]);
+                }
+            }, 400);
+        });
+
+        $('#course_registered_input').keydown(function(e){
+            clearTimeout( CoursesRegistered );
+            var CoursesRegistered = setTimeout(function(){
+                var acl = autoComplete(val_list, $('#course_registered_input').val(), 3);
+                for (var i=1; i<acl.length; i++){
+                    $('#registered_autofill_' + i).html(acl[i-1]);
+                }
+            }, 400);
+        });
+    }
+
 
     function setupAutocomplete(){
         $.ajax({
@@ -41,7 +82,7 @@
             data: {},
             success: function(data){
                 var parsed = $.parseJSON(data);
-                console.log(parsed);
+                watchInputs(parsed);
             }
         });
     }
@@ -60,14 +101,14 @@
             success: function(data){
             	console.log('User logged in.');
             	/* reset login fields */
-                setupCourses(data);
+                setupUserCourses(data);
             }
         });
 	}
 
 	function setupSite(){
 		setupUI();
-		getCourses();
+		getUserCourses();
         setupAutocomplete();
 	}
 

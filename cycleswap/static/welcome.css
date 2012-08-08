@@ -32,6 +32,13 @@ input{
 	border-radius:8px;
 	padding-left:10px;
 }
+
+@font-face {
+	font-family: AmericanTypewriter;
+	src: url('/public/fonts/AmericanTypewriter.ttf'),
+	     url('/public/fonts/AmericanTypewriter.eot'); /* IE9+ */
+}
+
 #logo {
 	display: block;
 	text-align: center;
@@ -49,6 +56,7 @@ input{
 	width:600px;
 	height:600px;
 	position:relative;
+	top:-18px;
 }
 
 #app_left{
@@ -72,16 +80,17 @@ input{
 	width:250px;
 	height:419px;
     margin: 33px 25px 33px 25px;
+    position:relative;
 }
 
-#courses_registered{
+#courses_registered {
 	display:block;
 	width:250px;
 	height:200px;
     margin: 0px 25px 0px 25px;
 }
 
-#courses_want{
+#courses_want {
 	display:block;
 	width:250px;
 	height:200px;
@@ -99,7 +108,43 @@ input{
     border-radius:10px;
     padding:4px;
     margin: 14px;
-    font-family: 'Courier'
+    font-family: AmericanTypewriter;
+    font-weight:heavy;
+}
+
+#submit_button {
+	position:absolute;
+	bottom:16px;
+	width:216px;
+}
+
+.autocomplete_this {
+	margin: 16px;
+}
+
+.autofill{
+	background-color:rgba(61,61,61,.3);
+	color: rgb(0,0,25);
+	-moz-box-shadow:inset 0px 0px 10px  #5E5E5E;
+    -webkit-box-shadow:inset 0px 0px 10px  #5E5E5E;
+    box-shadow:inset 0px 0px 10px #5E5E5E;
+    border-radius:10px;
+    padding:13px;
+    font-family: AmericanTypewriter;
     font-weight:heavy;
     text-align: center;
+    width:160px;
+    margin:6px;
+    font-size:10px;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.results{
+	height:92px;
+	width:211px;
+	-moz-box-shadow:inset 0px 0px 10px  #5E5E5E;
+    -webkit-box-shadow:inset 0px 0px 10px  #5E5E5E;
+    box-shadow:inset 0px 0px 10px #5E5E5E;
+    border-radius:10px;
 }
