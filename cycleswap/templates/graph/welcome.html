@@ -2,7 +2,6 @@
 <title> CourseSwap.co - We facilitate elaborate course trades at Brown. </title>
 <head>
 	<script type="text/javascript" src="/public/jquery.js"></script>
-	<script type="text/javascript" src="/public/jquery-ui.js"></script>
 	<script type="text/javascript" src="/public/global.js"></script>
 	<script type="text/javascript" src="/public/utils.js"></script>
 	<link type="text/css" rel="stylesheet" href="/public/welcome.css"></link>
@@ -17,18 +16,44 @@ $(document).ready(function(){
 
 	<div id='logo'><img src='/public/images/logo.png'></div>
 
+	<div id="login" class="shadow_box">
+		<div class="h_description">Log in</div>
+		<table style="display:none">
+			<tr style="display:none;">
+				<td><span>Name</span></td>
+				<td><input type="text" id="name" name="Name"></td>
+			</tr>
+			<tr>
+				<td><span>Email</span></td>
+				<td><input type="text" id="email" name="Email" style="display:block;"></td>
+			</tr>
+			<tr>
+				<td><span>Password</span></td>
+				<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
+			</tr>
+			<tr style="display:none;">
+				<td><span>Password Again</span></td>
+				<td><input type="password" id="password_again" name="Password again" ></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="log in">
+				</td>
+			</tr>
+		</table>
+	</div>
 	<center>
 		<div id='app_body'>
 
 			<div id='app_left'>
-				<div id='courses_want'>
+				<div id='courses_want' class="shadow_box">
 				</div>
-				<div id='courses_registered'>
+				<div id='courses_registered' class="shadow_box">
 				</div>
 			</div>
 
 			<div id='app_right'>
-				<div id='preference_interface'>
+				<div id='preference_interface' class="shadow_box">
 				</div>
 			</div>
 		</div>

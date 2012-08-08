@@ -12,7 +12,9 @@
         $('#courses_want').append(createElem('div',{'id':'courses_i_want_text', 'className':'h_description'},"Courses I want to get into:"));
         $('#courses_want').append(createElem('input',{'id':'course_want_input', 'className': 'autocomplete_this', 'type':'text'}));
         $('#preference_interface').append(createElem('div',{'id':'drag_and_drop_prefs_txt', 'className':'h_description'},"Drag & Drop Preferences"));
-	}
+	
+        
+    }
 
 	function setupCourses(data){
 		/* set up courses */
