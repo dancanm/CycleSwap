@@ -29,18 +29,37 @@
                 $t.show();
                 $("#login").animate({
                     'width' : '90%'
-                },200,function(){
-
+                },
+                {
+                    duration:200,
+                    complete: function(){
+                        $(this).animate({
+                            'height':'200px'
+                        },{
+                            duration: 300
+                        });
+                    },
                 });
             }else{
-                $t.hide();
                 $("#login").animate({
-                    'width' : '45%'
-                },200,function(){
-                    
+                    'height' : '20px'
+                },
+                {
+                    duration:300,
+                    complete: function(){
+                        $(this).animate({
+                            'width':'45%'
+                        },{
+                            duration: 300,
+                            easing: 'swing',
+                            complete:function(){$t.hide();}
+                        });
+                    },
                 });
             }
         });
+
+            
 
 
    }
