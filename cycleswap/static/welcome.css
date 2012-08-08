@@ -12,9 +12,9 @@ div{
 }
 #login_container{
 	position: absolute;
-	right: 80px;
+	right: -280px;
+	top:34px;
 	width: 300px;
-	top: 50px;
 }
 #login .h_description{
 	top:-18px;
@@ -26,6 +26,12 @@ div{
 	-moz-box-shadow:inset 0px 0px 10px  #2E2E2E;
     -webkit-box-shadow:inset 0px 0px 10px  #2E2E2E;
     box-shadow:inset 0px 0px 10px #2E2E2E;	
+}
+#login table{
+	margin-top:-25px;
+}
+#login tr{
+	height:30px;
 }
 #login span{
 	margin-left: auto;

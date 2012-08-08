@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from graph.models import *
+from django.contrib.auth import authenticate, login, logout
 import json
 
 
@@ -46,8 +47,20 @@ def register_ajax(request):
 	email = request.POST['email']
 	password = request.POST['password']
 	create_new_user(name,email,password)
+    login(request, user)
 	return HttpResponse('registered')
 
+def log_in(request):
+	email = request.POST['email']
+	password = request.POST['password']
+    user = authenticate(email=email, password=password)
+    if user:
+    	login(request,user)
+	else:
+		return HttpResponse('Invalid email/password!')
+def log_out(request):
+	logout(request):
+	return HttpResponseRedirect('/')
 def save_courses_ajax(request):
 	user = request.user
 	if user.is_authenticated():

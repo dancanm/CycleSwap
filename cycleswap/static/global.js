@@ -51,7 +51,6 @@
                             'width':'45%'
                         },{
                             duration: 300,
-                            easing: 'swing',
                             complete:function(){$t.hide();}
                         });
                     },
@@ -59,9 +58,18 @@
             }
         });
 
-            
-
-
+        //clicking
+        $("#login #submit").click(logIn);
+   }
+   function logIn(){
+    $.ajax({
+        url : '/log-in',
+        type : 'POST',
+        data : {'email' : $("#email").val(), 'password':$("#password").val()},
+        success:function(data){
+            console.log(data);
+        }
+    });
    }
 
 	function setupUserCourses(data){
