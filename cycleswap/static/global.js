@@ -124,9 +124,26 @@
     });
    }
    function logOut(){
-        $()
    }
-
+   function register(){
+        $.ajax({
+            url : '/register/',
+            type: 'POST',
+            data : {
+                'name' : $("#name"),
+                'email' : $("#email"),
+                'password' : $("#password")
+                'password_again' : $("#password_again")
+            },
+            success:function(data){
+                if(data){
+                    console.log(data);
+                }else{
+                    console.log('successful')
+                }
+            }
+        })
+   }
    //courses will be a list of jsonified course_preferences
 	function setupUserCourses(courses){
 		
