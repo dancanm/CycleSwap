@@ -27,7 +27,7 @@ $(document).ready(function(){
 					<input id='course_want_input', class='autocomplete_this', type='text'>
 					<div id='want_results' class='results'>
 						{% for i in 123|make_list %}
-							<div id="want_autofill_{{i}}" class="autofill">
+							<div id="want_autofill_{{i}}" class="autofill ellipsis">
 								<span></span>
 							</div>
 						{% endfor %}
@@ -40,7 +40,7 @@ $(document).ready(function(){
 					<input id='course_registered_input', class='autocomplete_this', type='text'>
 					<div id='registered_results' class='results'>
 						{% for i in 123|make_list %}
-							<div id="want_autofill_{{i}}" class="autofill">
+							<div id="registered_autofill_{{i}}" class="autofill ellipsis">
 								<span></span>
 							</div>
 						{% endfor %}

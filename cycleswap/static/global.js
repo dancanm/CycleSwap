@@ -100,12 +100,13 @@
         });
 
         $('#course_registered_input').keydown(function(e){
+            console.log('PENIS');
             clearTimeout( CoursesRegistered );
             var CoursesRegistered = setTimeout(function(){
-                var acl = autoComplete(val_list, $('#course_registered_input').val(), 3);
-                for (var i=1; i<acl.length; i++){
-                    $('#registered_autofill_' + i).html(acl[i-1]);
-                }
+                $.each(autoComplete(val_list, $('#course_registered_input').val(), 3),function(i,v){
+                    console.log(i+ " "+v);
+                    $('#registered_autofill_' + String(i) +" span").html(v);
+                });
             }, 400);
         });
     }
@@ -116,9 +117,9 @@
             type: 'GET',
             url: '/get-course-list-ajax/',
             data: {},
+            dataType : 'json',
             success: function(data){
-                var parsed = $.parseJSON(data);
-                watchInputs(parsed);
+                watchInputs(data);
             }
         });
     }

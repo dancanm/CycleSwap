@@ -151,24 +151,31 @@ input{
     text-align: center;
     width:160px;
     margin:6px;
-    font-size:10px;
+    font-size:11px;
     white-space:nowrap;
     overflow:hidden;
-    height:27px;
-    width:197px;
+    height:23px;
+    width:90%;
     text-align:left;
+    vertical-align: middle;
+	color: #69CCCC;
+	padding-top:10px;
+	padding-left:5px;
+
+	cursor: pointer;
+}
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 
+.autofill span{
+
+}
 .results{
 	position:relative;
-	top:-18px;
-	height:92px;
-	width:211px;
-    background-color:rgba(72,72,72,.4);
-	border-radius:10px;
-	-moz-box-shadow:inset 0px 0px 25px  #2B2B2B;
-    -webkit-box-shadow:inset 0px 0px 25px  #2B2B2B;
-    box-shadow:inset 0px 0px 25px #2B2B2B;	
-    padding-top:3px;
-    padding-bottom: 16px;
+	top:-25px;
+	height:115px;
 }
