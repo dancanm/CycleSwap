@@ -5,7 +5,7 @@
 
 
 (function(){
-
+    var logged_in = false;
 	function setupUI(){
         //login events
         $("#login .h_description").click(function(){
@@ -43,10 +43,32 @@
             }
         });
 
+        $(".registration_input").hide();
         //clicking
         $("#login #submit").click(function(){
             logIn();
         });
+        $("#submit_button").click(function(){
+            if(logged_in){
+                saveCourses();
+            }else {
+                if($("#login_container .h_description").text()=='Register'){
+                    //pulsate
+                    $("#login").animate({
+                        boxShadow: '0px 0px 25px  #000000'
+                    },200,function(){
+                        $(this).animate({boxShadow:'0px 0px 25px #2B2B2B'})
+                    });
+                }else{
+                    //open up the registration jawn
+                    $("#login_container .h_description")
+                        .fadeOut(400, function(){
+                            $(this).text('Register');
+                        }).fadeIn(400).click();
+                    $(".registration_input").show();
+                }
+            }
+        })
 
         $( "#preferences" ).sortable({
             revert: true,
@@ -69,6 +91,7 @@
                 console.log('login unsuccessful');
                 //error message
             }else{
+                logged_in = true;
                 setupUserCourses(data.courses);
             }
         }
@@ -169,7 +192,6 @@
 	}
 
 	function saveCourses(){
-		setupUI();
 		$.ajax({
             type: 'POST',
             url: '/save-courses-ajax/',
@@ -203,6 +225,6 @@
 
 window.setupSite = setupSite;
 window.saveCourses = saveCourses;
-
+window.logged_in = logged_in;
 }());
 

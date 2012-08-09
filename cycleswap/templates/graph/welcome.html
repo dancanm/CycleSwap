@@ -3,7 +3,7 @@
 <head>
 	<script type="text/javascript" src="/public/jquery.js"></script>
 		<script type="text/javascript" src="/public/jquery-ui.js"></script>
-
+		<script type="text/javascript" src="/public/shadow-animation.js"></script>
 	<script type="text/javascript" src="/public/global.js"></script>
 	<script type="text/javascript" src="/public/utils.js"></script>
 	<link type="text/css" rel="stylesheet" href="/public/welcome.css"></link>
@@ -13,6 +13,7 @@
 window.csrfTOKEN = '{{ csrf_token }}';
 $(document).ready(function(){
 	setupSite();
+	logged_in = {% if logged_in %}true{% else %}false{% endif %};
 });
 </script>
 
@@ -66,7 +67,7 @@ $(document).ready(function(){
 			<div id="login" class="shadow_box" style="height:20px; width:45%">
 				<div class="h_description">Log in</div>
 				<table style="display:none">
-					<tr style="display:none;">
+					<tr class="registration_input">
 						<td><span>Name</span></td>
 						<td><input type="text" id="name" name="Name"></td>
 					</tr>
@@ -78,7 +79,7 @@ $(document).ready(function(){
 						<td><span>Password</span></td>
 						<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
 					</tr>
-					<tr style="display:none;">
+					<tr class="registration_input">
 						<td><span>Password Again</span></td>
 						<td><input type="password" id="password_again" name="Password again" ></td>
 					</tr>

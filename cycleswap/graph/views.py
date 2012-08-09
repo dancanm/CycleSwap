@@ -20,7 +20,10 @@ def create_students():
 ### views ###
 
 def welcome(request):
-	return render_to_response('graph/welcome.html',{},context_instance=RequestContext(request))
+	if request.user.is_authenticated():
+		li = True
+	else: li = False
+	return render_to_response('graph/welcome.html',{'logged_in':li},context_instance=RequestContext(request))
 
 ### web functions ###
 
