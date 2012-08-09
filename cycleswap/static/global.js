@@ -47,6 +47,11 @@
         $("#login #submit").click(function(){
             logIn();
         });
+
+        $( "#preferences" ).sortable({
+            revert: true,
+            stop : numberPreferences,
+        });
    }
    function logIn(){
     $.ajax({
@@ -112,7 +117,8 @@
                         .unbind('click')
                         .click(function(){
                             $(this).hide();
-                            $("#preferences").append("<div class='autofill "+ops.type+"'><span>"+v+"</span></div>")
+                            $("#preferences").append("<div class='autofill ellipsis "+ops.type+"' name='"+v+"'><span>"+v+"</span></div>")
+                            numberPreferences();
                         }).find('span').html(v);
                 });
 
@@ -132,6 +138,12 @@
         });
     }
 
+    function numberPreferences(){
+        $("#preferences").children().each(function(i,v){
+            var s = $(v).find('span');
+            s.html(String(i+1)+". "+ $(v).attr('name'));
+        });
+    }
 	function setupSite(){
 		setupUI();
 		getUserCourses();
