@@ -28,24 +28,42 @@ def welcome(request):
 ### web functions ###
 
 def create_new_user(name,email,password):
-	new_student = Student(name=name)
-	new_student.user = User.objects.create_user(email,None,password)
-	new_student.save()
+	user = User(email=email,username=email)
+	user.set_password(password)
+	user.save()
+	user = authenticate(username=user.email, password=password)
 
+	new_student = Student.objects.create(name=name, user=user)
+
+	return user
 ### ajax calls ###
 
-def register_ajax(request):
+def register(request):
 	name = request.POST['name']
 	email = request.POST['email']
 	password = request.POST['password']
-	create_new_user(name,email,password)
-	login(request, user)
-	return HttpResponse('registered')
+	password_again = request.POST['password_again']
+	errors = []
+	if password != password_again:
+		errors.append('Your passwords don\'t seem to match')
+
+	if email.split('@')[-1] != 'brown.edu':
+		errors.append('You need a brown.edu email address to join')
+
+	if User.objects.filter(username=email).exists():
+		errors.append('Someone already joined with this email!')
+
+	if not errors:
+		user = create_new_user(name,email,password)
+		login(request, user)
+		return HttpResponse('')
+	else:
+		return HttpResponse(json.dumps({'error':errors}))
 
 def log_in(request):
 	email = request.POST['email']
 	password = request.POST['password']
-	user = authenticate(email=email, password=password)
+	user = authenticate(username=email, password=password)
 	if user:
 		login(request,user)
 		student = user.student
@@ -53,7 +71,8 @@ def log_in(request):
 	else:
 		return HttpResponse(json.dumps({'error':'invalid email/password!'}))
 def log_out(request):
-	return HttpResponseRedirect('/')
+	logout(request)
+	return HttpResponse('')
 def save_courses_ajax(request):
 	user = request.user
 	if user.is_authenticated():
@@ -75,11 +94,10 @@ def get_user_courses_ajax(request):
 	user = request.user
 	data = {}
 	if user.is_authenticated():
-		preferences = user.student.preferences
-		for preference in preferences:
-			course = preference.course
-			data[course.name] = {'title': course.title, 'name': course.name, 'description': course.description, 'rank': preference.rank, 'registered': preference.registered}
-	return HttpResponse(json.dumps(data))
+		preferences = user.student.preferences.all()
+	else:
+		preferences = []
+	return HttpResponse(json.dumps([pref.jsonify() for pref in preferences]))
 
 def get_course_list_ajax(request):
 	list_of_courses = [str(course).replace(" ","",1) for course in Course.objects.all()]

@@ -12,8 +12,8 @@
 <script type="text/javascript">
 window.csrfTOKEN = '{{ csrf_token }}';
 $(document).ready(function(){
+	window.logged_in = {% if logged_in %}true{% else %}false{% endif %};
 	setupSite();
-	logged_in = {% if logged_in %}true{% else %}false{% endif %};
 });
 </script>
 

@@ -3,13 +3,14 @@
 */
 
 
-
+var logged_in
 (function(){
-    var logged_in = false;
 	function setupUI(){
         //login events
-        if(! logged_in){
-            $("#login .h_description").click(function(){showHide();});
+        if(logged_in){
+            changeToLogout();
+        }else{
+            changeToLogin();
         }
 
         $(".registration_input").hide();
@@ -83,14 +84,15 @@
             showIt();
             $(".registration_input").show();
         }
-        $("#submit").click(register);
+        $("#submit").unbind('click').click(register);
    }
    function changeToLogin(){
     $("#login_container .h_description")
         .fadeOut(400, function(){
             $(this).text('Log in');
-        }).fadeIn(400);
-        hideIt();
+        }).fadeIn(400).unbind('click').click(showHide);
+        hideIt()
+    $("#submit").unbind('click').click(logIn);
    }
    function changeToLogout(){
     $("#login_container .h_description")
@@ -98,6 +100,7 @@
             $(this).text('Log out');
         }).fadeIn(400).unbind('click');
         hideIt();
+    $("#login .h_description").unbind('click').click(logOut);
    }
    function logIn(){
     $.ajax({
@@ -110,43 +113,62 @@
         },
         dataType:'json',
         success:function(data){
+            console.log(data);
             if(data.error){
                 console.log('login unsuccessful');
                 //error message
             }else{
                 logged_in = true;
                 setupUserCourses(data.courses);
-                $("#login .h_description").unbind('click').click(function(){
-                    logOut();
-                });
+                changeToLogout();
             }
         }
     });
    }
    function logOut(){
+        $.post('/log-out/',{'csrfmiddlewaretoken': csrfTOKEN}, function(){
+            $("#app_body").fadeOut(500,function(){
+                logged_in = false;
+                changeToLogin();
+                setupUserCourses([]);
+                $("#app_body").fadeIn(500);
+            });
+        });
    }
    function register(){
         $.ajax({
             url : '/register/',
             type: 'POST',
             data : {
-                'name' : $("#name"),
-                'email' : $("#email"),
-                'password' : $("#password")
-                'password_again' : $("#password_again")
+                'csrfmiddlewaretoken': csrfTOKEN,
+                'name' : $("#name").val(),
+                'email' : $("#email").val(),
+                'password' : $("#password").val(),
+                'password_again' : $("#password_again").val()
             },
+            dataType:'json',
             success:function(data){
-                if(data){
+                if(data.error){
                     console.log(data);
                 }else{
-                    console.log('successful')
+                    changeToLogout();
                 }
             }
         })
    }
+   function prefListing(v,type){
+        return "<div class='autofill ellipsis "+type+"' name='"+v+"'><span>"+v+"</span><div class='delete_button' style='display:none'></div></div>"
+   }
    //courses will be a list of jsonified course_preferences
 	function setupUserCourses(courses){
-		
+        var $p = $("#preferences");
+		$p.empty();
+        $.each(courses,function(){
+            console.log(this);
+            var name = this.course.name+": "+this.course.title;
+            var type = this.registered === 't' ? 'registered' : 'want';
+            $p.append(prefListing(this.course.name))
+        });
 	}
 
 	function getUserCourses(){
@@ -156,8 +178,9 @@
             data: {	
                 'csrfmiddlewaretoken': csrfTOKEN,
             },
+            dataType:'json',
             success: function(data){
-                console.log('Retrieved courses.');
+                console.log(data);
                 setupUserCourses(data);
             }
         });
@@ -188,7 +211,7 @@
                         .click(function(){
                             if(! alreadySelected(v) && $("#preferences ."+ops.type).length < 4){
                                 $(this).hide();
-                                $("#preferences").append("<div class='autofill ellipsis "+ops.type+"' name='"+v+"'><span>"+v+"</span><div class='delete_button' style='display:none'></div></div>")
+                                $("#preferences").append(prefListing(v, ops.type))
                                 numberPreferences();
                             }
                         }).find('span').html(v);
@@ -251,23 +274,6 @@
         });
 	}
 
-	function register(){
-		$.ajax({
-            type: 'POST',
-            url: '/register-ajax/',
-            data: {	
-                'csrfmiddlewaretoken': csrfTOKEN,
-                'name': $('#name_input').val(),
-                'email': $('#email_input').val(),
-                'password': $('#password_input').val(),
-            },
-            success: function(){
-            	console.log('Registered new user.');
-                /* save courses */
-                /* reset register fields */
-            }
-        });
-	}
 
 window.setupSite = setupSite;
 window.saveCourses = saveCourses;
