@@ -7,17 +7,6 @@ import json
 
 
 ### setup utils ###
-
-def import_courses():
-	# import data as json, convert it to a list of course dicts
-	json_data=open('static/banner.json').read()
-	data = json.loads(json_data)
-
-	for course_data in data:
-		new_course = Course(name=course_data['name'],title=course_data['title'],description=course_data['description'])
-		new_course.save()
-		print course_data['name'] + ": " + course_data['title']
-
 def create_students():
 	names = ['dan','ezra','charlie','andrew','nathan','brian','colleen']
 	emails = ['dan','ezra','charlie','andrew','nathan','brian','colleen']

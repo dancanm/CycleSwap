@@ -128,8 +128,6 @@ INSTALLED_APPS = (
     # web app
     'graph',
     # user auth
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
