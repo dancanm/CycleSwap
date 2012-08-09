@@ -8,40 +8,9 @@
     var logged_in = false;
 	function setupUI(){
         //login events
-        $("#login .h_description").click(function(){
-            var $t =  $("#login table");
-            if($t.css('display') === 'none'){
-                $t.show();
-                $("#login").animate({
-                    'width' : '90%'
-                },
-                {
-                    duration:200,
-                    complete: function(){
-                        $(this).animate({
-                            'height':'200px'
-                        },{
-                            duration: 300
-                        });
-                    },
-                });
-            }else{
-                $("#login").animate({
-                    'height' : '20px'
-                },
-                {
-                    duration:300,
-                    complete: function(){
-                        $(this).animate({
-                            'width':'45%'
-                        },{
-                            duration: 300,
-                            complete:function(){$t.hide();}
-                        });
-                    },
-                });
-            }
-        });
+        if(! logged_in){
+            $("#login .h_description").click(function(){showHide();});
+        }
 
         $(".registration_input").hide();
         //clicking
@@ -52,21 +21,7 @@
             if(logged_in){
                 saveCourses();
             }else {
-                if($("#login_container .h_description").text()=='Register'){
-                    //pulsate
-                    $("#login").animate({
-                        boxShadow: '0px 0px 25px  #000000'
-                    },200,function(){
-                        $(this).animate({boxShadow:'0px 0px 25px #2B2B2B'})
-                    });
-                }else{
-                    //open up the registration jawn
-                    $("#login_container .h_description")
-                        .fadeOut(400, function(){
-                            $(this).text('Register');
-                        }).fadeIn(400).click();
-                    $(".registration_input").show();
-                }
+                changeToRegister();
             }
         })
 
@@ -75,6 +30,74 @@
             stop : numberPreferences,
             cancel : '.delete_button'
         });
+   }
+   function showHide(){
+        if($("#login table").css('display') === 'none'){showIt();
+        }else{ hideIt();}
+   }
+   function showIt(){
+        var $t =  $("#login table");
+        $t.show();
+        $("#login").animate({
+            'width' : '90%'
+        },
+        {
+            duration:200,
+            complete: function(){
+                $(this).animate({
+                    'height':'200px'
+                },{duration: 300});}});
+   }
+   function hideIt(){
+        var $t =  $("#login table");
+        $("#login").animate({
+            'height' : '20px'
+        },
+        {
+            duration:300,
+            complete: function(){
+                $(this).animate({
+                    'width':'45%'
+                },{
+                    duration: 300,
+                    complete:function(){$t.hide();}
+                });
+            },
+        });
+
+   }
+   function changeToRegister(){
+        if($("#login_container .h_description").text()=='Register'){
+            //pulsate
+            $("#login").animate({
+                boxShadow: '0px 0px 25px  #000000'
+            },200,function(){
+                $(this).animate({boxShadow:'0px 0px 25px #2B2B2B'})
+            });
+        }else{
+            //open up the registration jawn
+            $("#login_container .h_description")
+                .fadeOut(400, function(){
+                    $(this).text('Register');
+                }).fadeIn(400);
+            showIt();
+            $(".registration_input").show();
+        }
+        $("#submit").click(register);
+   }
+   function changeToLogin(){
+    $("#login_container .h_description")
+        .fadeOut(400, function(){
+            $(this).text('Log in');
+        }).fadeIn(400);
+        hideIt();
+   }
+   function changeToLogout(){
+    $("#login_container .h_description")
+        .fadeOut(400, function(){
+            $(this).text('Log out');
+        }).fadeIn(400).unbind('click');
+        hideIt();
    }
    function logIn(){
     $.ajax({
@@ -93,9 +116,15 @@
             }else{
                 logged_in = true;
                 setupUserCourses(data.courses);
+                $("#login .h_description").unbind('click').click(function(){
+                    logOut();
+                });
             }
         }
     });
+   }
+   function logOut(){
+        $()
    }
 
    //courses will be a list of jsonified course_preferences
