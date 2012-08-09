@@ -7,21 +7,6 @@
 (function(){
 
 	function setupUI(){
-        var want_autofill1 = createElem('div',{'id':'want_autofill_1','className':'autofill'});
-        var want_autofill2 = createElem('div',{'id':'want_autofill_2','className':'autofill'});
-        var want_autofill3 = createElem('div',{'id':'want_autofill_3','className':'autofill'});
-        var registered_autofill1 = createElem('div',{'id':'registered_autofill1','className':'autofill'});
-        var registered_autofill2 = createElem('div',{'id':'registered_autofill2','className':'autofill'});
-        var registered_autofill3 = createElem('div',{'id':'registered_autofill3','className':'autofill'});
-       // $('.autofill').hide();
-        $('#want_results').append(want_autofill1);
-        $('#want_results').append(want_autofill2);
-        $('#want_results').append(want_autofill3);
-        $('#registered_results').append(registered_autofill1);
-        $('#registered_results').append(registered_autofill2);
-        $('#registered_results').append(registered_autofill3);
-
-   
         //login events
         $("#login .h_description").click(function(){
             var $t =  $("#login table");

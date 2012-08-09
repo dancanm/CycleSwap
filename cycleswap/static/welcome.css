@@ -135,6 +135,8 @@ input{
 
 .autocomplete_this {
 	margin: 16px;
+	position:relative;
+	top:-12px;
 }
 
 .autofill{
@@ -158,6 +160,8 @@ input{
 }
 
 .results{
+	position:relative;
+	top:-18px;
 	height:92px;
 	width:211px;
     background-color:rgba(72,72,72,.4);
@@ -165,4 +169,6 @@ input{
 	-moz-box-shadow:inset 0px 0px 25px  #2B2B2B;
     -webkit-box-shadow:inset 0px 0px 25px  #2B2B2B;
     box-shadow:inset 0px 0px 25px #2B2B2B;	
+    padding-top:3px;
+    padding-bottom: 16px;
 }
