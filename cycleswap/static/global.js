@@ -88,44 +88,37 @@
         });
 	}
 
-    function watchInputs(val_list){
-        $('#courses_want input').keydown(function(e){
-            clearTimeout( CoursesWant );
-            var CoursesWant = setTimeout(function(){
-                var query = $("#courses_want input").val();
-                if(query === ''){
-                    $("#courses_want .results").hide()
-                }else{
-                    $("#courses_want .results").show()
-                }
-                var acl = autoComplete(val_list,query, 3);
-                $("#courses_want .autofill").hide('');
-                $.each(autoComplete(val_list, query, 3),function(i,v){
-                    $($("#courses_want .autofill")[i]).show();
-                    $('#want_autofill_'+ String(i+1) +" span").html(v);
-                });
-            }, 400);
-        });
+    $.fn.auto = function(options){
+        var ops = $.extend({
+            'div' : this,//registered
+            'type' : this.attr('type'),
+            'courses' : [],
+            'delay' : 400
+        },options);
+        var input = ops.div.find('input');
+        var results = ops.div.find('.results');
 
-        $('#courses_registered input').keydown(function(e){
-            clearTimeout( CoursesRegistered );
-            var CoursesRegistered = setTimeout(function(){
-                var query = $("#courses_registered input").val();
-                if(query === ''){
-                    $("#courses_registered .results").hide()
-                }else{
-                    $("#courses_registered .results").show()
-                }
-                $("#courses_registered .autofill").hide();
-                $.each(autoComplete(val_list, query, 3),function(i,v){
-                    $($("#courses_registered .autofill")[i]).show();
-                    $('#registered_autofill_' + String(i+1) +" span").html(v);
+        input.keydown(function(e){
+            clearTimeout(time);
+            var time = setTimeout(function(){
+                var query = input.val();
+
+                if(query === ''){results.hide();}
+                else{results.show();}
+
+                ops.div.find('.autofill').hide();
+                $.each(autoComplete(ops.courses, query, 3), function(i,v){
+                    $("#"+ops.type+"_autofill_"+String(i+1)).show()
+                        .unbind('click')
+                        .click(function(){
+                            $(this).hide();
+                            $("#preferences").append("<div class='autofill "+ops.type+"'><span>"+v+"</span></div>")
+                        }).find('span').html(v);
                 });
-            }, 400);
+
+            },ops.delay);
         });
     }
-
-
     function setupAutocomplete(){
         $.ajax({
             type: 'GET',
@@ -133,7 +126,8 @@
             data: {},
             dataType : 'json',
             success: function(data){
-                watchInputs(data);
+                $("#courses_want").auto({'courses' : data});
+                $("courses_registered").auto({'courses': data,});
             }
         });
     }

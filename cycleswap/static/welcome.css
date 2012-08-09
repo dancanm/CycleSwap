@@ -164,6 +164,10 @@ input{
 
 	cursor: pointer;
 }
+#preferences{
+	position: relative;
+	top:10px;
+}
 .autofill:hover{
 	background:rgba(51, 204, 225, .1);
 }

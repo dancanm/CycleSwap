@@ -20,27 +20,27 @@ $(document).ready(function(){
 		<div id='app_body'>
 
 			<div id='app_left'>
-				<div id='courses_want' class='shadow_box'>
+				<div id='courses_want' class='shadow_box' type="want">
 					<div id='courses_i_want_txt', class='h_description'>
 						Courses I want
 					</div>
 					<input id='course_want_input', class='autocomplete_this', type='text'>
 					<div id='want_results' class='results' style="display:none">
 						{% for i in 123|make_list %}
-							<div id="want_autofill_{{i}}" class="autofill ellipsis">
+							<div id="want_autofill_{{i}}" class="autofill ellipsis want">
 								<span></span>
 							</div>
 						{% endfor %}
 					</div>
 				</div>
-				<div id='courses_registered'  class='shadow_box'>
+				<div id='courses_registered'  class='shadow_box' type="registered">
 					<div id='courses_im_registered_for_txt', class='h_description'>
 						Courses I'm registered for
 					</div>
 					<input id='course_registered_input', class='autocomplete_this', type='text'>
 					<div id='registered_results' class='results' style="display:none;">
 						{% for i in 123|make_list %}
-							<div id="registered_autofill_{{i}}" class="autofill ellipsis">
+							<div id="registered_autofill_{{i}}" class="autofill ellipsis registered">
 								<span></span>
 							</div>
 						{% endfor %}
@@ -52,6 +52,9 @@ $(document).ready(function(){
 				<div id='preference_interface'  class='shadow_box'>
 					<div id='drag_and_drop_prefs_txt' class='h_description'>
 						Drag & Drop Preferences
+					</div>
+					<div id="preferences">
+
 					</div>
 					<img id='submit_button' src='/public/images/submit.png'>
 				</div>
