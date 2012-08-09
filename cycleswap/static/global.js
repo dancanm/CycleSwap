@@ -93,16 +93,17 @@
             clearTimeout( CoursesWant );
             var CoursesWant = setTimeout(function(){
                 var query = $("#courses_want input").val();
-                console.log(query)
-                if(query=== ''){
+                if(query === ''){
                     $("#courses_want .results").hide()
                 }else{
                     $("#courses_want .results").show()
                 }
                 var acl = autoComplete(val_list,query, 3);
-                for (var i=1; i<acl.length; i++){
-                    $('#want_autofill_' + i).html(acl[i-1]);
-                }
+                $("#courses_want .autofill").hide('');
+                $.each(autoComplete(val_list, query, 3),function(i,v){
+                    $($("#courses_want .autofill")[i]).show();
+                    $('#want_autofill_'+ String(i+1) +" span").html(v);
+                });
             }, 400);
         });
 
@@ -115,9 +116,10 @@
                 }else{
                     $("#courses_registered .results").show()
                 }
+                $("#courses_registered .autofill").hide();
                 $.each(autoComplete(val_list, query, 3),function(i,v){
-                    console.log(i+ " "+v);
-                    $('#registered_autofill_' + String(i) +" span").html(v);
+                    $($("#courses_registered .autofill")[i]).show();
+                    $('#registered_autofill_' + String(i+1) +" span").html(v);
                 });
             }, 400);
         });

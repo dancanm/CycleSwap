@@ -6,17 +6,45 @@
 //      num_results : number of results to return
 //  Returns: a list of num_results strings from val_list 
 function autoComplete(val_list,query, num_results){
-        // new function for String => contains
-        String.prototype.contains = function(n) { return (this.toLowerCase()).indexOf(n.toLowerCase()) != -1; };
         //var val_array = val_list.split(",");
         var filtered_vals = val_list.filter(function(val){
-            return val.contains(query);
+            return val.hasPrefix(query);
         });
-        var sub_array = filtered_vals.slice(0, num_results);
-        return filtered_vals
+        if(filtered_vals.length < 3){
+            var more = val_list.filter(function(val){
+                return val.hasSubstring(query);
+            });
+            while(more.length > 0 && filtered_vals.length < 3){
+                console.log(more[0] + " " + filtered_vals)
+                if(! contains(filtered_vals, more[0])){
+                    filtered_vals.push(more.shift());
+                }else{
+                    more.shift();
+                }
+            }
+        }
+        return filtered_vals.slice(0, num_results+1);
 }
-
-
+String.prototype.hasPrefix = function(str){
+    var n = str.toLowerCase();
+    var split = this.split(' ');
+    for(var i = 0; i<split.length; i++){
+        var v = split[i].toLowerCase();
+        if(! contains(['the','a','an'],v)){
+            if(v.indexOf(n) === 0){return true}
+        }
+    }
+    return false;
+}
+String.prototype.hasSubstring = function(n){
+    return (this.toLowerCase()).indexOf(n.toLowerCase()) != -1;
+}
+function contains(lst, n){
+    for(var i = 0; i<lst.length; i++){
+        if(lst[i] == n){return true;}
+    }
+    return  false;
+}
 //  createElem
 //      Desc: makes any DOM element and gives it attributes and/or innerHTML, and can append other objects to it
 //      Args: 
