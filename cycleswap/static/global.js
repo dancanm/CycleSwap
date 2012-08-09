@@ -136,6 +136,7 @@ var logged_in
         });
    }
    function register(){
+
         $.ajax({
             url : '/register/',
             type: 'POST',
@@ -261,11 +262,18 @@ var logged_in
 	}
 
 	function saveCourses(){
+        courses = []
+        $("#preferences").each(function(){
+            courses.unshift({'title':this.name,'registered' : this.hasClass('want')?'f':'t'})
+        })
+
+        courses = JSON.stringify(courses);
 		$.ajax({
             type: 'POST',
             url: '/save-courses-ajax/',
             data: {	
                 'csrfmiddlewaretoken': csrfTOKEN,
+                'courses' : courses
                 /* course data */
             },
             success: function(){
