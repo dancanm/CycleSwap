@@ -168,11 +168,14 @@ input{
 	position: relative;
 	top:10px;
 }
+
 #preferences .want{
 	color:#69CC91;
 }
 #preferences .registered{
 	color:#CC6979;
+}
+#preferences .want, #preferences .registered{
 }
 .autofill:hover{
 	background:rgba(51, 204, 225, .1);
@@ -191,4 +194,22 @@ input{
 	position:relative;
 	top:-25px;
 	height:115px;
+}
+.delete_button{
+    width:15px;
+    height:15px;
+    background:url('/public/images/delete_button.png');
+    cursor:pointer;
+	position: absolute;
+	right: 13px;
+	margin-top: -15px;
+	opacity: .35;
+}
+
+.delete_button:hover{
+    background-position:0px -15px;
+}
+
+.delete_button:active{
+    background-position:0px -30px;
 }

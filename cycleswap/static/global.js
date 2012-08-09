@@ -51,6 +51,7 @@
         $( "#preferences" ).sortable({
             revert: true,
             stop : numberPreferences,
+            cancel : '.delete_button'
         });
    }
    function logIn(){
@@ -116,14 +117,23 @@
                     $("#"+ops.type+"_autofill_"+String(i+1)).show()
                         .unbind('click')
                         .click(function(){
-                            $(this).hide();
-                            $("#preferences").append("<div class='autofill ellipsis "+ops.type+"' name='"+v+"'><span>"+v+"</span></div>")
-                            numberPreferences();
+                            if(! alreadySelected(v)){
+                                $(this).hide();
+                                $("#preferences").append("<div class='autofill ellipsis "+ops.type+"' name='"+v+"'><span>"+v+"</span><div class='delete_button' style='display:none'></div></div>")
+                                numberPreferences();
+                            }
                         }).find('span').html(v);
                 });
 
             },ops.delay);
         });
+    }
+    function alreadySelected(name){
+        var r = false;
+        $("#preferences").children().each(function(){
+            if($(this).attr('name')==name){r = true;}
+        });
+        return r;
     }
     function setupAutocomplete(){
         $.ajax({
@@ -142,6 +152,14 @@
         $("#preferences").children().each(function(i,v){
             var s = $(v).find('span');
             s.html(String(i+1)+". "+ $(v).attr('name'));
+            $(v).hover(function(){
+                $(this).find('.delete_button').show();
+            },function(){
+                $(this).find('.delete_button').hide();
+            })
+            $(v).find('.delete_button').click(function(){
+                $(v).remove();
+            });
         });
     }
 	function setupSite(){
