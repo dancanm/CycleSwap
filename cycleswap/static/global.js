@@ -117,7 +117,7 @@
                     $("#"+ops.type+"_autofill_"+String(i+1)).show()
                         .unbind('click')
                         .click(function(){
-                            if(! alreadySelected(v)){
+                            if(! alreadySelected(v) && $("#preferences ."+ops.type).length < 4){
                                 $(this).hide();
                                 $("#preferences").append("<div class='autofill ellipsis "+ops.type+"' name='"+v+"'><span>"+v+"</span><div class='delete_button' style='display:none'></div></div>")
                                 numberPreferences();
