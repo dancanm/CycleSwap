@@ -89,21 +89,33 @@
 	}
 
     function watchInputs(val_list){
-        $('#course_want_input').keydown(function(e){
+        $('#courses_want input').keydown(function(e){
             clearTimeout( CoursesWant );
             var CoursesWant = setTimeout(function(){
-                var acl = autoComplete(val_list, $('#course_want_input').val(), 3);
+                var query = $("#courses_want input").val();
+                console.log(query)
+                if(query=== ''){
+                    $("#courses_want .results").hide()
+                }else{
+                    $("#courses_want .results").show()
+                }
+                var acl = autoComplete(val_list,query, 3);
                 for (var i=1; i<acl.length; i++){
                     $('#want_autofill_' + i).html(acl[i-1]);
                 }
             }, 400);
         });
 
-        $('#course_registered_input').keydown(function(e){
-            console.log('PENIS');
+        $('#courses_registered input').keydown(function(e){
             clearTimeout( CoursesRegistered );
             var CoursesRegistered = setTimeout(function(){
-                $.each(autoComplete(val_list, $('#course_registered_input').val(), 3),function(i,v){
+                var query = $("#courses_registered input").val();
+                if(query === ''){
+                    $("#courses_registered .results").hide()
+                }else{
+                    $("#courses_registered .results").show()
+                }
+                $.each(autoComplete(val_list, query, 3),function(i,v){
                     console.log(i+ " "+v);
                     $('#registered_autofill_' + String(i) +" span").html(v);
                 });

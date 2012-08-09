@@ -164,6 +164,9 @@ input{
 
 	cursor: pointer;
 }
+.autofill:hover{
+	background:rgba(51, 204, 225, .1);
+}
 .ellipsis {
     white-space: nowrap;
     overflow: hidden;

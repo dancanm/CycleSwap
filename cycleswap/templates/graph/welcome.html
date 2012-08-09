@@ -25,7 +25,7 @@ $(document).ready(function(){
 						Courses I want
 					</div>
 					<input id='course_want_input', class='autocomplete_this', type='text'>
-					<div id='want_results' class='results'>
+					<div id='want_results' class='results' style="display:none">
 						{% for i in 123|make_list %}
 							<div id="want_autofill_{{i}}" class="autofill ellipsis">
 								<span></span>
@@ -38,7 +38,7 @@ $(document).ready(function(){
 						Courses I'm registered for
 					</div>
 					<input id='course_registered_input', class='autocomplete_this', type='text'>
-					<div id='registered_results' class='results'>
+					<div id='registered_results' class='results' style="display:none;">
 						{% for i in 123|make_list %}
 							<div id="registered_autofill_{{i}}" class="autofill ellipsis">
 								<span></span>
