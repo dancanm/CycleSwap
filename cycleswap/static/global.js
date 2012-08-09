@@ -133,7 +133,7 @@
             dataType : 'json',
             success: function(data){
                 $("#courses_want").auto({'courses' : data});
-                $("courses_registered").auto({'courses': data,});
+                $("#courses_registered").auto({'courses': data,});
             }
         });
     }

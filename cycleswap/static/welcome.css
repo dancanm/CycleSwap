@@ -168,6 +168,12 @@ input{
 	position: relative;
 	top:10px;
 }
+#preferences .want{
+	color:#69CC91;
+}
+#preferences .registered{
+	color:#CC6979;
+}
 .autofill:hover{
 	background:rgba(51, 204, 225, .1);
 }
