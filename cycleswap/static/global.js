@@ -263,10 +263,9 @@ var logged_in
 
 	function saveCourses(){
         courses = []
-        $("#preferences").each(function(){
-            courses.unshift({'title':this.name,'registered' : this.hasClass('want')?'f':'t'})
+        $("#preferences").children().each(function(){
+            courses.push({'full_title':$(this).attr('name'),'registered' : $(this).hasClass('want')?'f':'t'})
         })
-
         courses = JSON.stringify(courses);
 		$.ajax({
             type: 'POST',

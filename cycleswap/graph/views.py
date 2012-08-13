@@ -5,13 +5,21 @@ from graph.models import *
 from django.contrib.auth import authenticate, login, logout
 import json
 
+###  utils ###
+def import_courses():
+	# import data as json, convert it to a list of course dicts
+	json_data=open('static/banner.json').read()
+	data = json.loads(json_data)
 
-### setup utils ###
+	for course_data in data:
+		new_course = Course(name=course_data['name'].replace(" ","",1),title=course_data['title'],description=course_data['description'])
+		new_course.save()
+		print course_data['name'] + ": " + course_data['title']
+
 def create_students():
 	names = ['dan','ezra','charlie','andrew','nathan','brian','colleen']
-	emails = ['dan','ezra','charlie','andrew','nathan','brian','colleen']
 	for i in range(0,7):
-		new_student = Student(name=names[i],email=emails[i])
+		new_student = Student(name=names[i])
 		new_student.save()
 
 
@@ -32,9 +40,12 @@ def create_new_user(name,email,password):
 	user.set_password(password)
 	user.save()
 	user = authenticate(username=user.email, password=password)
+	user.save()
 
 	new_student = Student.objects.create(name=name, user=user)
-
+	new_student.save()
+	print user
+	print user.student
 	return user
 ### ajax calls ###
 
@@ -48,7 +59,8 @@ def register(request):
 		errors.append('Your passwords don\'t seem to match')
 
 	if email.split('@')[-1] != 'brown.edu':
-		errors.append('You need a brown.edu email address to join')
+		school = email.split('@')[-1].split('.')[0]
+		errors.append('You need a brown.edu email address to join. Go away, ' + school + ' student.')
 
 	if User.objects.filter(username=email).exists():
 		errors.append('Someone already joined with this email!')
@@ -56,7 +68,7 @@ def register(request):
 	if not errors:
 		user = create_new_user(name,email,password)
 		login(request, user)
-		return HttpResponse('')
+		return HttpResponse(json.dumps({}))
 	else:
 		return HttpResponse(json.dumps({'error':errors}))
 
@@ -67,6 +79,7 @@ def log_in(request):
 	if user:
 		login(request,user)
 		student = user.student
+		print student
 		return HttpResponse(json.dumps(student.jsonify()))
 	else:
 		return HttpResponse(json.dumps({'error':'invalid email/password!'}))
@@ -78,20 +91,31 @@ def save_courses_ajax(request):
 	if user.is_authenticated():
 		student = user.student
 		# load preferences, which are a list of dicts including course name, registered boolean, and rank
-		preferences = json.loads(request.POST['preferences'])
+		preferences = json.loads(request.POST['courses'])
 		# delete previous preferences
 		student.courses.clear()
 		# and create new ones
+		rank_counter = 1
+		print preferences
 		for preference in preferences:
-			course_name = preference.name
+			course_full_title = preference['full_title']
+			course_name = course_full_title.split(':')[0]
+			print course_name
 			course = Course.objects.get(name=course_name)
 			registered = (preference['registered'] == 'True')
-			rank = preference['rank']
+			rank = rank_counter
+			rank_counter += 1
 			new_pref = Course_preference(student=student,course=course,registered=registered,rank=rank)
 			new_pref.save()
+	return HttpResponse('courses saved')
+
 
 def get_user_courses_ajax(request):
 	user = request.user
+	print user
+	print user
+	print user
+	print user.student
 	data = {}
 	if user.is_authenticated():
 		preferences = user.student.preferences.all()
@@ -100,5 +124,5 @@ def get_user_courses_ajax(request):
 	return HttpResponse(json.dumps([pref.jsonify() for pref in preferences]))
 
 def get_course_list_ajax(request):
-	list_of_courses = [str(course).replace(" ","",1) for course in Course.objects.all()]
+	list_of_courses = [str(course) for course in Course.objects.all()]
 	return HttpResponse(json.dumps(list_of_courses))

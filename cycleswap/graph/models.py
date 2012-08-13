@@ -5,7 +5,7 @@ class Student (models.Model):
 	name = models.CharField(max_length=30)
 	user = models.OneToOneField(User,related_name='student',blank=True,null=True)
 	courses = models.ManyToManyField('Course', through='Course_preference',blank=True,null=True)
-
+	
 	def __unicode__(self):
 		return self.name
 	def jsonify(self):
