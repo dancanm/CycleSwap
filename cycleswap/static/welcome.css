@@ -40,6 +40,20 @@ div{
 	text-align:center;
 	float:right;
 }
+#login .button{
+	background-color: rgba(100, 100, 100, 0.292969);
+	width: 100px;
+	display: block;
+	position: absolute;
+	top: 190px;
+	margin:0px;
+}
+#login #submit{
+		right: 14px;
+}
+#login #login_button{
+		left: 14px;
+}
 input{
 	opacity: .6;
 	border-radius:8px;

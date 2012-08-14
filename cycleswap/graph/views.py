@@ -30,8 +30,9 @@ def create_students():
 def welcome(request):
 	if request.user.is_authenticated():
 		li = True
-	else: li = False
-	return render_to_response('graph/welcome.html',{'logged_in':li},context_instance=RequestContext(request))
+		name = request.user.student.name
+	else: li = name = False
+	return render_to_response('graph/welcome.html',{'logged_in':li, 'name':name},context_instance=RequestContext(request))
 
 ### web functions ###
 

@@ -42,7 +42,7 @@ class Course_preference (models.Model):
 	def jsonify(self):
 		return {
 			'rank' : self.rank,
-			'registered' : self.registered,
+			'registered' : 't' if self.registered else 'f',
 			'course' : self.course.jsonify(),
 			'is_in_cycle' : self.is_in_cycle
 		}

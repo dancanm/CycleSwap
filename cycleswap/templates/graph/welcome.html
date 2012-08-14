@@ -12,7 +12,8 @@
 <script type="text/javascript">
 window.csrfTOKEN = '{{ csrf_token }}';
 $(document).ready(function(){
-	window.logged_in = {% if logged_in %}true{% else %}false{% endif %};
+	window.name;
+	window.logged_in = {% if logged_in %}true; name="{{name}}"{% else %}false{% endif %};
 	setupSite();
 });
 </script>
@@ -65,7 +66,7 @@ $(document).ready(function(){
 
 		<div id="login_container">
 			<div id="login" class="shadow_box" style="height:20px; width:45%">
-				<div class="h_description">Log in</div>
+				<div id="header" class="h_description">Log in</div>
 				<table style="display:none">
 					<tr class="registration_input">
 						<td><span>Name</span></td>
@@ -80,15 +81,12 @@ $(document).ready(function(){
 						<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
 					</tr>
 					<tr class="registration_input">
-						<td><span>Password Again</span></td>
+						<td><span>Again</span></td>
 						<td><input type="password" id="password_again" name="Password again" ></td>
 					</tr>
-					<tr>
-						<td>
-							<input id="submit" type="submit" value="log in">
-						</td>
-					</tr>
 				</table>
+				<div class="h_description hide-em button" id="submit" >Log in</div >
+				<div class="h_description button" id="login_button" style="display:none;">Log in</div >
 			</div>
 	</div>
 
