@@ -5,6 +5,16 @@
 
 var logged_in, name
 (function(){
+
+    $.fn.enter = function(callback){
+        this.keydown(function(e){
+            var code = e.keyCode || e.which;
+            if(code === 13){ callback(); } // for enter button
+        });
+        return this;
+    };
+
+
 	function setupUI(){
         //login events
         $(".hide-em").hide();
@@ -13,6 +23,10 @@ var logged_in, name
         }else{
             changeToLogin();
         }
+
+        $("#login input").enter(function(){
+            $("#submit").click();
+        });
 
         $(".registration_input").hide();
         //clicking
@@ -38,7 +52,8 @@ var logged_in, name
         }else{ hideIt();}
 
    }
-   function showIt(){
+   function showIt(complete){
+        if(!complete){complete = function(){};}
         var $t =  $("#login table").show();
         
         $("#login").animate({
@@ -49,7 +64,7 @@ var logged_in, name
             complete: function(){
                 $(this).animate({
                     'height':'200px'
-                },{duration: 300,complete:function(){$('.hide-em').fadeIn(200);}});}});
+                },{duration: 300,complete:function(){$('.hide-em').fadeIn(200); complete();}});}});
    }
    function hideIt(){
         var $t =  $("#login table");
@@ -80,24 +95,31 @@ var logged_in, name
             });
         }else{
             //open up the registration jawn
+            $(".registration_input").show();
             $("#login_container #header")
                 .fadeOut(400, function(){
                     $(this).text('Register');
                 }).fadeIn(400);
-            showIt();
+            showIt(function(){
+                $("#login_button").addClass('hide-em').show();
+                $("#submit").text('Register');
+            });
             $(".registration_input").show();
         }
         $("#submit").unbind('click').click(register);
    }
-   function changeToLogin(){
+   function changeToLogin(show){
+    $(".registration_input").hide();
+    $("#login_button").removeClass('hide-em').hide();
     $("#login_container #header")
         .fadeOut(400, function(){
             $(this).text('Log in');
         }).fadeIn(400).unbind('click').click(showHide);
-        hideIt()
-    $("#submit").unbind('click').click(logIn);
+        if(!show){hideIt();}
+    $("#submit").text('Log in').unbind('click').click(logIn);
    }
    function changeToLogout(name){
+    $("#login_button").removeClass('hide-em').hide();
     $("#login_container #header")
         .fadeOut(200, function(){
             $(this).text('Log out');
@@ -288,5 +310,7 @@ var logged_in, name
 window.setupSite = setupSite;
 window.saveCourses = saveCourses;
 window.logged_in = logged_in;
+window.changeToLogin = changeToLogin;
+window.showIt = showIt;
 }());
 
