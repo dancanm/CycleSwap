@@ -103,7 +103,7 @@ def save_courses_ajax(request):
 			course_name = course_full_title.split(':')[0]
 			print course_name
 			course = Course.objects.get(name=course_name)
-			registered = (preference['registered'] == 'True')
+			registered = (preference['registered'] == 't')
 			rank = rank_counter
 			rank_counter += 1
 			new_pref = Course_preference(student=student,course=course,registered=registered,rank=rank)

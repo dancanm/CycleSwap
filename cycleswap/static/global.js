@@ -193,8 +193,9 @@ var logged_in, name
             console.log(this);
             var name = this.course.name+": "+this.course.title;
             var type = this.registered === 't' ? 'registered' : 'want';
-            $p.append(prefListing(this.course.name))
+            $p.prepend(prefListing(this.course.name+": "+this.course.title, type));
         });
+        numberPreferences();
 	}
 
 	function getUserCourses(){
