@@ -178,6 +178,7 @@ var logged_in, name
                     console.log(data);
                 }else{
                     changeToLogout(name);
+                    saveCourses();
                 }
             }
         })
