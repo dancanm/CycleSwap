@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Student (models.Model):
 	name = models.CharField(max_length=30)
 	user = models.OneToOneField(User,related_name='student',blank=True,null=True)
-	courses = models.ManyToManyField('Course', through='Course_preference',blank=True,null=True)
+	courses = models.ManyToManyField('Course', through='Course_preference', blank=True,null=True)
 	
 	def __unicode__(self):
 		return self.name
@@ -37,7 +37,10 @@ class Course_preference (models.Model):
 	is_in_cycle = models.BooleanField(default=False)
 
 	def __unicode__(self):
-		return self.student.__unicode__() + " -> " + self.course.__unicode__()
+		if self.registered:
+			return self.student.__unicode__() + " has " + self.course.__unicode__()
+		else:
+			return self.student.__unicode__() + " wants " + self.course.__unicode__()
 
 	def jsonify(self):
 		return {
