@@ -110,10 +110,6 @@ def save_courses_ajax(request):
 
 def get_user_courses_ajax(request):
 	user = request.user
-	print user
-	print user
-	print user
-	print user.student
 	data = {}
 	if user.is_authenticated():
 		preferences = user.student.preferences.all()
@@ -128,9 +124,9 @@ def get_course_list_ajax(request):
 ### algorithms ##
 
 # test findcycle
-def findCycleTest(n):
-	s = Student.objects.all()[0]
-	findCycles(s,n)
+def findCycleTest(k,n):
+	s = Student.objects.all()[k]
+	return findCycles(s,n)
 
 # findCycle
 # takes in a Student and an integer n, and returns
@@ -144,24 +140,28 @@ def findCycles(root_student,n):
 		courses_wanted.append(pref.course)
 
 	for course_wanted in courses_wanted:
-		cycles.append(findCyclesHelper(root_student, course_wanted, course_wanted, [root_student.preferences.get(course=course_wanted)], n))
+		found_cycle = findCyclesHelper(root_student, course_wanted, course_wanted, [root_student.preferences.get(course=course_wanted)], n)
+		if found_cycle:
+			cycles.append(found_cycle)
 
 	return cycles
 
 
 def findCyclesHelper(root_student, root_course, course_wanted,cycle,n):
-	if n >= 0:
+	if n > 0:
 		# if course_wanted is being offered by root_student,
 		pref_give = Course_preference.objects.filter(student=root_student).filter(course=course_wanted).filter(registered=True)
 		if pref_give:
 			# and if ranks agree that its a cycle,
-			rank_give = pref_give[0].rank
+			pref_give = pref_give[0]
+			rank_give = pref_give.rank
 			rank_receive = Course_preference.objects.filter(student=root_student).filter(course=root_course)[0].rank
 			if rank_receive < rank_give:
 				# then return the cycle
 				cycle.append(pref_give)
-				print cycle
 				return cycle
+			else:
+				return []
 		# else if root_student doesn't have course_wanted, find all the students
 		# who do, and run a recursive search on the courses they want, which are
 		# also preferred to course_wanted
@@ -174,6 +174,6 @@ def findCyclesHelper(root_student, root_course, course_wanted,cycle,n):
 				for pref_wants in prefs_student_wants:
 					cycle.append(pref_wants)
 					new_course_wanted = pref_wants.course
-					findCyclesHelper(root_student,root_course,new_course_wanted,cycle,n-2)
-	else:
-		return []
+					found_cycle = findCyclesHelper(root_student,root_course,new_course_wanted,cycle,n-1)
+					if found_cycle:
+						return found_cycle
