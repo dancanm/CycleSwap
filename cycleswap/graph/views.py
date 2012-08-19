@@ -169,9 +169,11 @@ def findCyclesHelper(root_student, root_course, course_wanted,cycle,n):
 			prefs_have_course = Course_preference.objects.filter(course=course_wanted).filter(registered=True)
 			for pref_has in prefs_have_course:
 				cycle.append(pref_has)
+				print pref_has
 				student_has_course = pref_has.student
 				prefs_student_wants = student_has_course.preferences.filter(registered=False).filter(rank__lt=pref_has.rank)
 				for pref_wants in prefs_student_wants:
+					print pref_wants
 					cycle.append(pref_wants)
 					new_course_wanted = pref_wants.course
 					found_cycle = findCyclesHelper(root_student,root_course,new_course_wanted,cycle,n-1)

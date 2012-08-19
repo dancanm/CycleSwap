@@ -14,6 +14,25 @@ var logged_in, name
         return this;
     };
 
+    function setupInputs(){
+        // Filler text that disappears on click, unlike placeholder
+        // To use, just give an <input> tag a fillertext attribute
+        $('input').each(function(){
+            var $input = $(this);
+            if ($input.attr('fillertext') !== undefined){
+                var text = $input.attr('fillertext')
+                $input.val(text).addClass('grey').focus(function(){
+                    if ( $(this).val() === text ){
+                        $(this).val('').removeClass('grey');
+                    }
+                }).blur(function(){
+                    if ( $(this).val() === '' ){
+                      $(this).val(text).addClass('grey');
+                    }
+                }); 
+            }
+        });
+    }
 
 	function setupUI(){
         //login events
@@ -46,6 +65,7 @@ var logged_in, name
             stop : numberPreferences,
             cancel : '.delete_button'
         });
+        setupInputs();
    }
    function showHide(){
         if($("#login table").css('display') === 'none'){showIt();
