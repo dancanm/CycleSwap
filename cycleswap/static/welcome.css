@@ -236,8 +236,8 @@ input{
     background:url('/public/images/delete_button.png');
     cursor:pointer;
 	position: absolute;
-	right: 13px;
-	margin-top: -15px;
+	right: 18px;
+	margin-top: -14px;
 	opacity: .35;
 }
 
