@@ -57,7 +57,6 @@ var logged_in, name
         var $t =  $("#login table").show();
         
         $("#login").animate({
-            'width' : '90%'
         },
         {
             duration:200,

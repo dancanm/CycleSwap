@@ -18,7 +18,7 @@ div{
 }
 
 #login.shadow_box{
-	height: 200px;
+	height: 220px;
 }
 
 #login .h_description{
@@ -54,17 +54,17 @@ div{
 	margin:0px;
 }
 #login #submit{
-	
+	left: 130px;
 }
 #login #login_button{
-		left: 140px;
+		left: 25px;
 }
 input{
 	opacity: .3;
 	border-radius:8px;
 	padding-left:10px;
 	height: 30px;
-	width: 220px;
+	width: 200px;
 }
 
 @font-face {
@@ -119,9 +119,15 @@ input{
 
 #courseswap_info.shadow_box{
 	width: 250px;
-	height: 230px;
+	height: 250px;
 	position:relative;
 	top: 4px;
+}
+
+#courseswap_description{
+	font-size: 14px;
+	color: #69CC91;
+	padding: 20px;
 }
 
 #courses_registered {
