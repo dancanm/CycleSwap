@@ -77,26 +77,23 @@ var logged_in, name
         var $t =  $("#login table").show();
         
         $("#login").animate({
-            'width' : '90%'
         },
         {
             duration:200,
             complete: function(){
                 $(this).animate({
-                    'height':'200px'
+                    'height':'220px'
                 },{duration: 300,complete:function(){$('.hide-em').fadeIn(200); complete();}});}});
    }
    function hideIt(){
         var $t =  $("#login table");
         $(".hide-em").hide();
         $("#login").animate({
-            'height' : '20px'
         },
         {
             duration:300,
             complete: function(){
                 $(this).animate({
-                    'width':'45%'
                 },{
                     duration: 300,
                     complete:function(){$t.hide();}

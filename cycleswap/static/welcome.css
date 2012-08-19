@@ -12,10 +12,15 @@ div{
 }
 #login_container{
 	position: absolute;
-	right: -280px;
-	top:34px;
-	width: 300px;
+	top: 532px;
+	left: 25px;
+	width: 250px;
 }
+
+#login.shadow_box{
+	height: 220px;
+}
+
 #login .h_description{
 	top:-18px;
 	cursor:pointer;
@@ -42,22 +47,24 @@ div{
 }
 #login .button{
 	background-color: rgba(100, 100, 100, 0.292969);
-	width: 100px;
+	width: 80px;
 	display: block;
 	position: absolute;
-	top: 190px;
+	top: 200px;
 	margin:0px;
 }
 #login #submit{
-		right: 14px;
+	left: 130px;
 }
 #login #login_button{
-		left: 14px;
+		left: 25px;
 }
 input{
-	opacity: .6;
+	opacity: .3;
 	border-radius:8px;
 	padding-left:10px;
+	height: 30px;
+	width: 200px;
 }
 
 @font-face {
@@ -73,15 +80,15 @@ input{
 
 .shadow_box{
 	background-color:rgba(160,160,160,.4);
-	border-radius:12px;
-	-moz-box-shadow:inset 0px 0px 40px  #2B2B2B;
-    -webkit-box-shadow:inset 0px 0px 40px  #2B2B2B;
-    box-shadow:inset 0px 0px 40px #2B2B2B;	
+	border-radius:10px;
+	-moz-box-shadow:inset 0px 0px 30px  #2B2B2B;
+    -webkit-box-shadow:inset 0px 0px 30px  #2B2B2B;
+    box-shadow:inset 0px 0px 30px #2B2B2B;	
 }
 
 #app_body{
 	width:600px;
-	height:600px;
+	height:800px;
 	position:relative;
 	top:-18px;
 }
@@ -105,38 +112,51 @@ input{
 #preference_interface{
 	display:block;
 	width:250px;
-	height:419px;
+	height:480px;
     margin: 33px 25px 33px 25px;
     position:relative;
+}
+
+#courseswap_info.shadow_box{
+	width: 250px;
+	height: 250px;
+	position:relative;
+	top: 4px;
+}
+
+#courseswap_description{
+	font-size: 14px;
+	color: #69CC91;
+	padding: 20px;
 }
 
 #courses_registered {
 	display:block;
 	width:250px;
-	height:200px;
+	height:230px;
     margin: 0px 25px 0px 25px;
 }
 
 #courses_want {
 	display:block;
 	width:250px;
-	height:200px;
-    margin: 33px 25px 18px 25px;
+	height:230px;
+    margin: 34px 25px 18px 25px;
 }
 
 .h_description {
 	position: relative;
-	top:11px;
+	top:15px;
 	background-color:rgba(51,204,225,.1);
-	color: #69CCCC;
-	-moz-box-shadow:inset 0px 0px 13px  #2B2B2B;
-    -webkit-box-shadow:inset 0px 0px 13px  #2B2B2B;
-    box-shadow:inset 0px 0px 13px #2B2B2B;
-    border-radius:7px;
-    padding:4px;
-    margin: 14px;
+	color: #39B;
+	-moz-box-shadow:inset 0px 0px 10px  #2B2B2B;
+    -webkit-box-shadow:inset 0px 0px 10px  #2B2B2B;
+    box-shadow:inset 0px 0px 10px #2B2B2B;
+    border-radius:8px;
+    padding:8px;
+    margin: 15px;
     font-family: AmericanTypewriter;
-    font-weight:heavy;
+    text-shadow: 1px 1px 2px #2B2B2B;
 }
 
 #submit_button {
@@ -148,9 +168,11 @@ input{
 }
 
 .autocomplete_this {
-	margin: 16px;
+	margin: 8px;
 	position:relative;
-	top:-12px;
+	top:2px;
+	height: 30px;
+	width: 220px;
 }
 
 .autofill{
@@ -161,7 +183,6 @@ input{
     box-shadow:inset 0px 0px 25px #2B2B2B;	
     border-radius:10px;
     font-family: AmericanTypewriter;
-    font-weight:heavy;
     text-align: center;
     width:160px;
     margin:6px;
@@ -206,8 +227,8 @@ input{
 }
 .results{
 	position:relative;
-	top:-25px;
 	height:115px;
+	width: 240px;
 }
 .delete_button{
     width:15px;
