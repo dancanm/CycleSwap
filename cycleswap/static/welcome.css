@@ -148,7 +148,7 @@ input{
 	position: relative;
 	top:15px;
 	background-color:rgba(51,204,225,.1);
-	color: #69CCCC;
+	color: #39B;
 	-moz-box-shadow:inset 0px 0px 10px  #2B2B2B;
     -webkit-box-shadow:inset 0px 0px 10px  #2B2B2B;
     box-shadow:inset 0px 0px 10px #2B2B2B;
@@ -156,7 +156,7 @@ input{
     padding:8px;
     margin: 15px;
     font-family: AmericanTypewriter;
-    font-weight:heavy;
+    text-shadow: 1px 1px 2px #2B2B2B;
 }
 
 #submit_button {
@@ -183,7 +183,6 @@ input{
     box-shadow:inset 0px 0px 25px #2B2B2B;	
     border-radius:10px;
     font-family: AmericanTypewriter;
-    font-weight:heavy;
     text-align: center;
     width:160px;
     margin:6px;
