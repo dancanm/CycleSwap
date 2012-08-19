@@ -37,6 +37,7 @@ $(document).ready(function(){
 						{% endfor %}
 					</div>
 				</div>
+
 				<div id='courses_registered'  class='shadow_box' type="registered">
 					<div id='courses_im_registered_for_txt', class='h_description'>
 						Courses I'm registered for
@@ -50,6 +51,13 @@ $(document).ready(function(){
 						{% endfor %}
 					</div>
 				</div>
+
+				<div id='courseswap_info' class='shadow_box' type="info">
+					<div id='courseswapinfo_header', class='h_description'>
+						How Courseswap works
+					</div>
+				</div>
+
 			</div>
 
 			<div id='app_right'>
@@ -62,32 +70,32 @@ $(document).ready(function(){
 					</div>
 					<img id='submit_button' src='/public/images/submit.png'>
 				</div>
-			</div>
 
-		<div id="login_container">
-			<div id="login" class="shadow_box" style="height:20px; width:45%">
-				<div id="header" class="h_description">Log in</div>
-				<table style="display:none">
-					<tr class="registration_input">
-						<td><span>Name</span></td>
-						<td><input type="text" id="name" name="Name"></td>
-					</tr>
-					<tr>
-						<td><span>Email</span></td>
-						<td><input type="text" id="email" name="Email" style="display:block;"></td>
-					</tr>
-					<tr>
-						<td><span>Password</span></td>
-						<td class="desc"><input type="password" id="password" name="Password" style="display:block;"></td>
-					</tr>
-					<tr class="registration_input">
-						<td><span>Again</span></td>
-						<td><input type="password" id="password_again" name="Password again" ></td>
+				<div id="login_container">
+					<div id="login" class="shadow_box">
+						<div id="header" class="h_description">Log in</div>
+						<table style="display:none">
+						<tr class="registration_input">
+						<td><input fillertext= "Name" type="text" id="name" name="Name"></td>
+						</tr>
+						<tr>
+						<td><input fillertext="Email" type="text" id="email" name="Email" style="display:block;"></td>
+							</tr>
+						<tr>
+						<td class="desc"><input  fillertext="Password" type="password" id="password" name="Password" style="display:block;"></td>
+						</tr>
+						<tr class="registration_input">
+						<td><input fillertext="Password again" type="password" id="password_again" name="Password again" ></td>
 					</tr>
 				</table>
 				<div class="h_description hide-em button" id="submit" >Log in</div >
 				<div class="h_description button" onclick="changeToLogin('t'); showIt();" id="login_button" style="display:none;">Log in</div >
 			</div>
+
+
+			</div>
+
+		
 	</div>
 
 		</div>
