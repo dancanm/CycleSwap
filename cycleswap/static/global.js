@@ -103,6 +103,7 @@ var logged_in, name
 
    }
    function changeToRegister(){
+        $('html, body').animate({scrollTop: $(document).height() - $(window).height()}, 600);
         if($("#login_container #header").text()=='Register'){
             //pulsate
             $("#login").animate({
