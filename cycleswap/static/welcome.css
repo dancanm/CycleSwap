@@ -178,12 +178,9 @@ input{
 .autofill{
 	background-color:rgba(61,61,61,.3);
 	color: rgb(0,0,25);
-	-moz-box-shadow:inset 0px 0px 25px  #2B2B2B;
-    -webkit-box-shadow:inset 0px 0px 25px  #2B2B2B;
-    box-shadow:inset 0px 0px 25px #2B2B2B;	
-    border-radius:10px;
+    border-radius:8px;
     font-family: AmericanTypewriter;
-    text-align: center;
+	text-align: center;
     width:160px;
     margin:6px;
     font-size:11px;
