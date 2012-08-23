@@ -4,6 +4,7 @@ from django.template import RequestContext
 from graph.models import *
 from django.contrib.auth import authenticate, login, logout
 import json
+from django.core.mail import send_mail
 
 ###  utils ###
 def import_courses():
@@ -42,9 +43,13 @@ def create_new_user(name,email,password):
 
 	new_student = Student.objects.create(name=name, user=user)
 	new_student.save()
-	print user
-	print user.student
 	return user
+
+def send_email(to_address):
+	subject = "Yo, sup man"
+	message = "Heard you wanted to swap courses. Well, I've got some courses for you to swap right here."
+	from_address = 'Pareto@courseswap.com'
+	send_mail(subject, message, from_address, to_address, fail_silently=False)
 
 ### ajax calls ###
 
