@@ -53,19 +53,9 @@ $(document).ready(function(){
 						{% endfor %}
 					</div>
 				</div>
-
-				<div id='courseswap_info' class='shadow_box' type="info">
-					<div id='courseswapinfo_header', class='h_description'>
-						How it works
-					</div>
-					<div id='courseswap_description', class='preferences', type='text'>
-						Courseswap is a new tool that helps students trade spots in capped courses that are difficult to get into. We apply graph alogrithms to students' preferences over courses and find advantageous trades that students can make when they meet up via <a style="color:#39B" href='http://calclash.com' target="_blank"> Calendar Clash. </a> 
-					</div>
-				</div>
-
 			</div>
 
-			<div id='app_right'>
+			<div id='app_center'>
 				<div id='preference_interface'  class='shadow_box'>
 					<div id='drag_and_drop_prefs_txt' class='h_description'>
 						Drag & Drop Preferences
@@ -75,7 +65,17 @@ $(document).ready(function(){
 					</div>
 					<img id='submit_button' src='/public/images/submit.png'>
 				</div>
+			</div>
 
+			<div id='app_right'>
+				<div id='courseswap_info' class='shadow_box' type="info">
+					<div id='courseswapinfo_header', class='h_description'>
+						How it works
+					</div>
+					<div id='courseswap_description', class='preferences', type='text'>
+						Courseswap is a new tool that helps students trade spots in capped courses that are difficult to get into. We apply graph alogrithms to students' preferences over courses and find advantageous trades that students can make when they meet up via <a style="color:#39B" href='http://calclash.com' target="_blank"> Calendar Clash. </a> 
+					</div>
+				</div>
 				<div id="login_container">
 					<div id="login" class="shadow_box">
 						<div id="header" class="h_description">Log in</div>
@@ -95,13 +95,9 @@ $(document).ready(function(){
 				</table>
 				<div class="h_description hide-em button" id="submit" >Log in</div >
 				<div class="h_description button" onclick="changeToLogin('t'); showIt();" id="login_button" style="display:none;">Log in</div >
+					</div>
+				</div>
 			</div>
-
-
-			</div>
-
-		
-	</div>
 
 		</div>
 	</center>
