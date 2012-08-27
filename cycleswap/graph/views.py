@@ -48,7 +48,7 @@ def create_new_user(name,email,password):
 def send_email(to_address):
 	subject = "Yo, sup man"
 	message = "Heard you wanted to swap courses. Well, I've got some courses for you to swap right here."
-	from_address = 'Pareto@courseswap.com'
+	from_address = 'Pareto@courseswap.co'
 	send_mail(subject, message, from_address, to_address, fail_silently=False)
 
 ### ajax calls ###

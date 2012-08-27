@@ -14,6 +14,8 @@ div{
 	top: 532px;
 	left: 25px;
 	width: 250px;
+	position:absolute;
+	top:263px;
 }
 
 #login.shadow_box{
@@ -86,7 +88,7 @@ input{
 }
 
 #app_body{
-	width:900px;
+	width:853px;
 	height:500px;
 	position:relative;
 	top:-18px;
@@ -125,16 +127,16 @@ input{
 
 #courseswap_info.shadow_box{
 	width: 250px;
-	height: 250px;
+	height: 219px;
 	position:relative;
-	top: 4px;
+	top: 18px;
 	margin-bottom:15px;
 }
 
 #courseswap_description{
 	font-size: 14px;
 	color: #69CC91;
-	padding: 20px;
+	padding: 7px 20px 0px 20px;
 }
 
 #courses_registered {
@@ -267,4 +269,13 @@ input{
 	height: 600px;
 	width: 600px;
 	opacity: 1;
+}
+
+#emailus {
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	text-decoration:none;
+	color:white;
+	color: #38A;
 }
