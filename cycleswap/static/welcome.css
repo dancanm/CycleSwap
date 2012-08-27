@@ -147,8 +147,8 @@ input{
 .h_description {
 	position: relative;
 	top:15px;
-	background-color:rgba(51,204,225,.1);
-	color: #39B;
+	background-color:rgba(50, 122, 143, .2);
+	color: #38A;
 	-moz-box-shadow:inset 0px 0px 10px  #2B2B2B;
     -webkit-box-shadow:inset 0px 0px 10px  #2B2B2B;
     box-shadow:inset 0px 0px 10px #2B2B2B;
@@ -244,4 +244,20 @@ input{
 
 .delete_button:active{
     background-position:0px -30px;
+}
+
+#darkbackground {
+    position:absolute;
+    top:0px;
+    left:0px;
+    background-color : black;
+    z-index: 20;
+    opacity: .3;
+}
+
+#lightbox {
+	z-index: 21;
+	height: 600px;
+	width: 600px;
+	opacity: 1;
 }

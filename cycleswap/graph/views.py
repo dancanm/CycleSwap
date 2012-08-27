@@ -87,9 +87,11 @@ def log_in(request):
 		return HttpResponse(json.dumps(student.jsonify()))
 	else:
 		return HttpResponse(json.dumps({'error':'invalid email/password!'}))
+
 def log_out(request):
 	logout(request)
 	return HttpResponse('')
+
 def save_courses_ajax(request):
 	user = request.user
 	if user.is_authenticated():
@@ -144,7 +146,9 @@ def findCycles(root_student,n):
 	for pref in prefs_wanted:
 		courses_wanted.append(pref.course)
 
+	# for each course the root student wants
 	for course_wanted in courses_wanted:
+		# run helper function on that course
 		found_cycle = findCyclesHelper(root_student, course_wanted, course_wanted, [root_student.preferences.get(course=course_wanted)], n)
 		if found_cycle:
 			cycles.append(found_cycle)
@@ -167,18 +171,22 @@ def findCyclesHelper(root_student, root_course, course_wanted,cycle,n):
 				return cycle
 			else:
 				return []
-		# else if root_student doesn't have course_wanted, find all the students
+		# else (if root_student doesn't have course_wanted), find all the students
 		# who do, and run a recursive search on the courses they want, which are
 		# also preferred to course_wanted
 		else:
 			prefs_have_course = Course_preference.objects.filter(course=course_wanted).filter(registered=True)
+			for cycle_pref in cycle:
+				for i in range(len(prefs_have_course)):
+					if cycle_pref.student == prefs_have_course[i].student or prefs_have_course[i].student.is_in_cycle():
+						print prefs_have_course
+						prefs_have_course = prefs_have_course.exclude(student=cycle_pref.student)
+						print prefs_have_course
 			for pref_has in prefs_have_course:
 				cycle.append(pref_has)
-				print pref_has
 				student_has_course = pref_has.student
 				prefs_student_wants = student_has_course.preferences.filter(registered=False).filter(rank__lt=pref_has.rank)
 				for pref_wants in prefs_student_wants:
-					print pref_wants
 					cycle.append(pref_wants)
 					new_course_wanted = pref_wants.course
 					found_cycle = findCyclesHelper(root_student,root_course,new_course_wanted,cycle,n-1)

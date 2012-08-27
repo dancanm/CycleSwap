@@ -1,0 +1,7 @@
+*.log
+*.pot
+*.pyc
+local_settings.py
+settings.py
+cycleswap/local_settings.py
+cycleswap/settings.py

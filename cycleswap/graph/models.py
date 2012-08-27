@@ -5,15 +5,27 @@ class Student (models.Model):
 	name = models.CharField(max_length=30)
 	user = models.OneToOneField(User,related_name='student',blank=True,null=True)
 	courses = models.ManyToManyField('Course', through='Course_preference', blank=True,null=True)
+	school = models.CharField(max_length=10, default="Brown")
+	cycle_info = models.TextField(null=True, blank=True)
 	
 	def __unicode__(self):
 		return self.name
+
+	def is_in_cycle(self):
+		ret = False
+		for pref in self.preferences.all():
+			if pref.is_in_cycle:
+				ret = True
+		return ret
+
 	def jsonify(self):
 		preferences = Course_preference.objects.filter(student=self).order_by('-rank')
 		return {
 			'name' : self.name,
 			'courses' : [cp.jsonify() for cp in preferences]
 		}
+
+
 class Course (models.Model):
 	name = models.CharField(max_length=10)
 	title = models.CharField(max_length=100)
@@ -21,12 +33,15 @@ class Course (models.Model):
 
 	def __unicode__(self):
 		return self.name + ": " + self.title
+
 	def jsonify(self):
 		return {
 			'name' : self.name,
 			'title' : self.title,
 			'description' : self.description
 		}
+
+		
 # Intermediary between Student and Class
 # Keeps track of class preferences and ordering
 class Course_preference (models.Model):
