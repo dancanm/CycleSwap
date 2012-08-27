@@ -131,7 +131,7 @@ def get_course_list_ajax(request):
 ### algorithms ##
 
 # test findcycle
-def findCycleTest(k,n):
+def test(k,n):
 	s = Student.objects.all()[k]
 	return findCycles(s,n)
 
@@ -179,16 +179,14 @@ def findCyclesHelper(root_student, root_course, course_wanted,cycle,n):
 			for cycle_pref in cycle:
 				for i in range(len(prefs_have_course)):
 					if cycle_pref.student == prefs_have_course[i].student or prefs_have_course[i].student.is_in_cycle():
-						print prefs_have_course
-						prefs_have_course = prefs_have_course.exclude(student=cycle_pref.student)
-						print prefs_have_course
+						prefs_have_course = prefs_have_course.exclude(student=prefs_have_course[i].student)
 			for pref_has in prefs_have_course:
 				cycle.append(pref_has)
 				student_has_course = pref_has.student
 				prefs_student_wants = student_has_course.preferences.filter(registered=False).filter(rank__lt=pref_has.rank)
 				for pref_wants in prefs_student_wants:
-					cycle.append(pref_wants)
+					new_cycle_list = cycle + [pref_wants]
 					new_course_wanted = pref_wants.course
-					found_cycle = findCyclesHelper(root_student,root_course,new_course_wanted,cycle,n-1)
-					if found_cycle:
-						return found_cycle
+					complete_cycle = findCyclesHelper(root_student,root_course,new_course_wanted,new_cycle_list,n-1)
+					if complete_cycle:
+						return complete_cycle

@@ -43,12 +43,12 @@ class Course (models.Model):
 
 		
 # Intermediary between Student and Class
-# Keeps track of class preferences and ordering
+# Keeps track of course preferences and ordering
 class Course_preference (models.Model):
 	student = models.ForeignKey('Student', related_name='preferences')
 	course = models.ForeignKey('Course', related_name='preferences')
 	registered = models.BooleanField()
-	rank = models.IntegerField(blank=True,null=True)
+	rank = models.IntegerField()
 	is_in_cycle = models.BooleanField(default=False)
 
 	def __unicode__(self):
@@ -64,3 +64,10 @@ class Course_preference (models.Model):
 			'course' : self.course.jsonify(),
 			'is_in_cycle' : self.is_in_cycle
 		}
+
+# Holds information about a pending or completed cycle
+class Cycle (models.Model):
+	creation_date = models.DateTimeField(auto_now_add=True)
+	resolution_date = models.DateTimeField(null=True)
+	resolved = models.BooleanField(default=False)
+	successful = models.NullBooleanField()
