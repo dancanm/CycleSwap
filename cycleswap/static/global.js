@@ -24,10 +24,19 @@ var logged_in, name
                 $input.val(text).addClass('grey').focus(function(){
                     if ( $(this).val() === text ){
                         $(this).val('').removeClass('grey');
+                        if (text === 'Password' || text === 'Confirm password'){
+                            this.type = 'password';
+                        }
+                    }
+                    if (text === 'Password'){
+
                     }
                 }).blur(function(){
                     if ( $(this).val() === '' ){
-                      $(this).val(text).addClass('grey');
+                        $(this).val(text).addClass('grey');
+                        if (text === 'Password' || text === 'Confirm password'){
+                            this.type = 'text'
+                        }
                     }
                 }); 
             }
@@ -40,14 +49,12 @@ var logged_in, name
         if(logged_in){
             changeToLogout(name);
         }else{
-            changeToLogin();
+            changeToRegister();
         }
 
         $("#login input").enter(function(){
             $("#submit").click();
         });
-
-        $(".registration_input").hide();
         //clicking
         $("#login #submit").click(function(){
             logIn();
@@ -103,6 +110,7 @@ var logged_in, name
 
    }
    function changeToRegister(){
+        $('#loggedin_text').text("");
         $('html, body').animate({scrollTop: $(document).height() - $(window).height()}, 600);
         if($("#login_container #header").text()=='Register'){
             //pulsate
@@ -126,25 +134,30 @@ var logged_in, name
         }
         $("#submit").unbind('click').click(register);
    }
+
    function changeToLogin(show){
+    $('#loggedin_text').text("");
     $(".registration_input").hide();
     $("#login_button").removeClass('hide-em').hide();
     $("#login_container #header")
         .fadeOut(400, function(){
             $(this).text('Log in');
-        }).fadeIn(400).unbind('click').click(showHide);
+        }).fadeIn(400);
         if(!show){hideIt();}
     $("#submit").text('Log in').unbind('click').click(logIn);
    }
+
    function changeToLogout(name){
     $("#login_button").removeClass('hide-em').hide();
     $("#login_container #header")
         .fadeOut(200, function(){
-            $(this).text('Log out');
+            $(this).text('Log out').addClass('pointer');
         }).fadeIn(400).unbind('click');
         hideIt();
     $("#login #header").unbind('click').click(logOut);
    }
+   $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+
    function logIn(){
     $.ajax({
         url : '/log-in/',
@@ -165,6 +178,7 @@ var logged_in, name
                 setupUserCourses(data.courses);
                 changeToLogout(data.name);
             }
+            $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
         }
     });
    }
@@ -197,6 +211,7 @@ var logged_in, name
                 }else{
                     changeToLogout(name);
                     saveCourses();
+                    $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
                 }
             }
         })
@@ -226,6 +241,7 @@ var logged_in, name
             },
             dataType:'json',
             success: function(data){
+                console.log("here's the course data");
                 console.log(data);
                 setupUserCourses(data);
             }

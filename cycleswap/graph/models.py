@@ -5,7 +5,7 @@ class Student (models.Model):
 	name = models.CharField(max_length=30)
 	user = models.OneToOneField(User,related_name='student',blank=True,null=True)
 	courses = models.ManyToManyField('Course', through='Course_preference', blank=True,null=True)
-	school = models.CharField(max_length=10, default="Brown")
+	school = models.CharField(max_length=10, default="brown")
 	cycle_info = models.TextField(null=True, blank=True)
 	
 	def __unicode__(self):
@@ -22,7 +22,10 @@ class Student (models.Model):
 		preferences = Course_preference.objects.filter(student=self).order_by('-rank')
 		return {
 			'name' : self.name,
-			'courses' : [cp.jsonify() for cp in preferences]
+			'courses' : [cp.jsonify() for cp in preferences],
+			'is_in_cycle' : self.is_in_cycle(),
+			'school' : self.school,
+			'cycle_info' : self.cycle_info
 		}
 
 
@@ -30,6 +33,7 @@ class Course (models.Model):
 	name = models.CharField(max_length=10)
 	title = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
+	school = models.CharField(max_length=10, default="brown")
 
 	def __unicode__(self):
 		return self.name + ": " + self.title
@@ -38,7 +42,8 @@ class Course (models.Model):
 		return {
 			'name' : self.name,
 			'title' : self.title,
-			'description' : self.description
+			'description' : self.description,
+			'school' : self.school
 		}
 
 		
@@ -50,6 +55,7 @@ class Course_preference (models.Model):
 	registered = models.BooleanField()
 	rank = models.IntegerField()
 	is_in_cycle = models.BooleanField(default=False)
+	# nodes <= related name link to list of Nodes
 
 	def __unicode__(self):
 		if self.registered:
@@ -71,3 +77,12 @@ class Cycle (models.Model):
 	resolution_date = models.DateTimeField(null=True)
 	resolved = models.BooleanField(default=False)
 	successful = models.NullBooleanField()
+	# nodes <= related name link to list of Nodes
+
+# Each node in a Cycle is a Node
+# Contains: a pointer to it's Cycle, a pointer to a pref, and a
+#   pointer to the next pref
+class Node (models.Model):
+	cycle = models.ForeignKey('Cycle', related_name='nodes')
+	pref = models.ForeignKey('Course_preference', related_name='nodes')
+	next = models.OneToOneField('Node', related_name='prev')

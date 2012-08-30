@@ -92,3 +92,4 @@ function createElem(a, b, c, d){ // artur's
 
     return x;
 }
+window.createElem = createElem;

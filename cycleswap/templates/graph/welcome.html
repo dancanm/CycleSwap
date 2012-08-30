@@ -17,6 +17,9 @@ $(document).ready(function(){
 	window.name;
 	window.logged_in = {% if logged_in %}true; name="{{name}}"{% else %}false{% endif %};
 	setupSite();
+	if (logged_in){
+		$('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+	}
 });
 </script>
 
@@ -87,14 +90,15 @@ $(document).ready(function(){
 						<td><input fillertext="Email" type="text" id="email" name="Email" style="display:block;"></td>
 							</tr>
 						<tr>
-						<td class="desc"><input  fillertext="Password" type="password" id="password" name="Password" style="display:block;"></td>
+						<td class="desc"><input  fillertext="Password" type="text" class="Password" id="password" name="Password" style="display:block;"></td>
 						</tr>
 						<tr class="registration_input">
-						<td><input fillertext="Password again" type="password" id="password_again" name="Password again" ></td>
+						<td><input fillertext="Confirm password" type="text" id="password_again" class="Password" name="Password again" ></td>
 					</tr>
 				</table>
-				<div class="h_description hide-em button" id="submit" >Log in</div >
-				<div class="h_description button" onclick="changeToLogin('t'); showIt();" id="login_button" style="display:none;">Log in</div >
+				<div class="h_description hide-em button pointer" id="submit" >Log in</div >
+				<div class="h_description button pointer" onclick="changeToLogin('t'); showIt();" id="login_button" style="display:none;">Log in</div >
+					<div id="loggedin_text" class="courseswap_description"></div>
 					</div>
 				</div>
 			</div>

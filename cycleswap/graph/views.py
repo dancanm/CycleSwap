@@ -17,12 +17,6 @@ def import_courses():
 		new_course.save()
 		print course_data['name'] + ": " + course_data['title']
 
-def create_students():
-	names = ['dan','ezra','charlie','andrew','nathan','brian','colleen']
-	for i in range(0,7):
-		new_student = Student(name=names[i])
-		new_student.save()
-
 ### views ###
 
 def welcome(request):
@@ -93,6 +87,7 @@ def log_out(request):
 	return HttpResponse('')
 
 def save_courses_ajax(request):
+	print 'savecourses 1'
 	user = request.user
 	if user.is_authenticated():
 		student = user.student
@@ -102,6 +97,7 @@ def save_courses_ajax(request):
 		student.courses.clear()
 		# and create new ones
 		rank_counter = 1
+		print 'savecourses 2'
 		print preferences
 		for preference in preferences:
 			course_full_title = preference['full_title']
