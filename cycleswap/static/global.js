@@ -148,6 +148,7 @@ var logged_in, name
         });
         if(!show){hideIt();}
     $("#submit").text('Log in').unbind('click').click(logIn);
+    $("#login #header").unbind('click').removeClass('pointer');
    }
 
    function changeToLogout(name){
