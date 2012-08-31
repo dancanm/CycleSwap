@@ -72,8 +72,14 @@ def craft_email(cycle):
 
 def save_cycle(pref_list):
 	new_cycle = Cycle()
+	new_cycle.save()
 	curr_pref = pref_list[0]
-
+	for i in range(len(pref_list) - 1):
+		new_node = Node(cycle=new_cycle, pref=pref_list[i], next=pref_list[i+1])
+		new_node.save()
+	new_node = Node(cycle=new_cycle, pref=pref_list[len(pref_list) - 1], next=pref_list[0])
+	new_node.save()
+	
 
 ### ajax calls ###
 
