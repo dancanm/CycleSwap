@@ -39,11 +39,41 @@ def create_new_user(name,email,password):
 	new_student.save()
 	return user
 
-def send_email(to_address):
-	subject = "Yo, sup man"
-	message = "Heard you wanted to swap courses. Well, I've got some courses for you to swap right here."
+def send_individual_email(student, cycle, pref):
+	course = pref.course
+	subject = "You're in a cycle! Register for " + course.title + " now."
+	message = "Hello " + student.name.split(" ")[0] + "." + "\r\r"
+	message += "After poring over the date, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title ". Here's how it works:" + "\r\r"
+
+	want_nodes = cycle.nodes.objects.filter(pref__registered=False)
+	curr_node = want_nodes[0]
+	for i in range(len(want_nodes)):
+		node_pref = curr_node.pref
+		node_student = pref.student
+		if node_student == student:
+			# second person
+			message += "You want to take " + node_pref.course.name + ": " + node_pref.course.title + ", and are willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r"
+		else:
+			# third person
+			message += student.name + " ("+student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r"
+		curr_node = curr_node.next.next
+
+	message += "\rCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\rLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of the semester!\r\r"
+	message += "Happy swapping,\r the Courseswap team"
 	from_address = 'Pareto@courseswap.co'
-	send_mail(subject, message, from_address, to_address, fail_silently=False)
+	send_mail(subject, message, from_address, student.user.email, fail_silently=False)
+
+def craft_email(cycle):
+	for node in cycle.nodes.objects.filter(pref__registered=False):
+		pref = node.pref
+		student = pref.student
+		course = pref.course
+		send_individual_email(student, cycle, pref)
+
+def save_cycle(pref_list):
+	new_cycle = Cycle()
+	curr_pref = pref_list[0]
+
 
 ### ajax calls ###
 
@@ -126,7 +156,7 @@ def get_course_list_ajax(request):
 
 ### algorithms ##
 
-# test findcycle
+# test findCycle
 def test(k,n):
 	s = Student.objects.all()[k]
 	return findCycles(s,n)
