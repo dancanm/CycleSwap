@@ -215,6 +215,7 @@ var logged_in, name
                 if(data.error){
                     console.log(data);
                 }else{
+                    name = $("#name").val();
                     changeToLogout(name);
                     saveCourses();
                     $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
