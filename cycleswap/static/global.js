@@ -131,6 +131,7 @@ var logged_in, name
                 $("#submit").text('Register');
             });
             $(".registration_input").show();
+            $('#name, #email, .Password').val("").blur();
         }
         $("#submit").unbind('click').click(register);
    }
@@ -149,6 +150,7 @@ var logged_in, name
         if(!show){hideIt();}
     $("#submit").text('Log in').unbind('click').click(logIn);
     $("#login #header").unbind('click').removeClass('pointer');
+    $('#name, #email, .Password').val("").blur();
    }
 
    function changeToLogout(name){
@@ -159,8 +161,9 @@ var logged_in, name
         }).fadeIn(400).unbind('click');
         hideIt();
     $("#login #header").unbind('click').click(logOut);
-   }
-   $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+    $('#name, #email, .Password').val("").blur();
+    $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+    }
 
    function logIn(){
     $.ajax({
