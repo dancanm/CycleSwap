@@ -142,7 +142,10 @@ var logged_in, name
     $("#login_container #header")
         .fadeOut(400, function(){
             $(this).text('Log in');
-        }).fadeIn(400);
+        }).fadeIn(400, function(){
+            $("#email, #password").show();
+            $("#login table, #submit").fadeIn(200);
+        });
         if(!show){hideIt();}
     $("#submit").text('Log in').unbind('click').click(logIn);
    }
@@ -178,7 +181,10 @@ var logged_in, name
                 setupUserCourses(data.courses);
                 changeToLogout(data.name);
             }
-            $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+            $("#login table, #submit").fadeOut(200, function(){
+                $('#loggedin_text').hide().text("Welcome, " + name + ". Feel free to update your course preferences.")
+                    .fadeIn(200);
+            });
         }
     });
    }
@@ -347,6 +353,8 @@ window.setupSite = setupSite;
 window.saveCourses = saveCourses;
 window.logged_in = logged_in;
 window.changeToLogin = changeToLogin;
+window.changeToLogout = changeToLogout;
+window.changeToRegister = changeToRegister;
 window.showIt = showIt;
 }());
 
