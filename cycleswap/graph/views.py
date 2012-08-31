@@ -42,33 +42,33 @@ def create_new_user(name,email,password):
 def send_individual_email(student, cycle, pref):
 	course = pref.course
 	subject = "You're in a cycle! Register for " + course.title + " now."
-	message = "Hello " + student.name.split(" ")[0] + "." + "\r\r"
-	message += "After poring over the date, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\r"
+	message = "Hello " + student.name.split(" ")[0] + "." + "\r\n\r\n"
+	message += "After poring over the data, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\n\r\n"
 
-	want_nodes = cycle.nodes.objects.filter(pref__registered=False)
+	want_nodes = cycle.nodes.filter(pref__registered=False)
 	curr_node = want_nodes[0]
 	for i in range(len(want_nodes)):
 		node_pref = curr_node.pref
 		node_student = pref.student
 		if node_student == student:
 			# second person
-			message += "You want to take " + node_pref.course.name + ": " + node_pref.course.title + ", and are willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r"
+			message += "You want to take " + node_pref.course.name + ": " + node_pref.course.title + ", and are willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r\n"
 		else:
 			# third person
-			message += student.name + " ("+student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r"
+			message += student.name + " ("+student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r\n"
 		curr_node = curr_node.next.next
 
-	message += "\rCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\rLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of the semester!\r\r"
-	message += "Happy swapping,\r the Courseswap team"
+	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\n\r\nLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of the semester!\r\n\r\n"
+	message += "Happy swapping,\r\n     the Courseswap team"
 	from_address = 'Pareto@courseswap.co'
 	print message
 	student.cycle_info = message
 	student.save()
-	send_mail(subject, message, from_address, student.user.email, fail_silently=False)
+	send_mail(subject, message, from_address, [student.user.email], fail_silently=False)
 
 
 def craft_email(cycle):
-	for node in cycle.nodes.objects.filter(pref__registered=False):
+	for node in cycle.nodes.filter(pref__registered=False):
 		pref = node.pref
 		student = pref.student
 		course = pref.course
