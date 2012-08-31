@@ -43,7 +43,7 @@ def send_individual_email(student, cycle, pref):
 	course = pref.course
 	subject = "You're in a cycle! Register for " + course.title + " now."
 	message = "Hello " + student.name.split(" ")[0] + "." + "\r\r"
-	message += "After poring over the date, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title ". Here's how it works:" + "\r\r"
+	message += "After poring over the date, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\r"
 
 	want_nodes = cycle.nodes.objects.filter(pref__registered=False)
 	curr_node = want_nodes[0]
@@ -61,25 +61,38 @@ def send_individual_email(student, cycle, pref):
 	message += "\rCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\rLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of the semester!\r\r"
 	message += "Happy swapping,\r the Courseswap team"
 	from_address = 'Pareto@courseswap.co'
+	print message
+	student.cycle_info = message
+	student.save()
 	send_mail(subject, message, from_address, student.user.email, fail_silently=False)
+
 
 def craft_email(cycle):
 	for node in cycle.nodes.objects.filter(pref__registered=False):
 		pref = node.pref
 		student = pref.student
 		course = pref.course
+		pref.is_in_cycle = True
+		pref.save()
 		send_individual_email(student, cycle, pref)
 
+# takes a list of Course_preferences and saves a Cycle object
 def save_cycle(pref_list):
 	new_cycle = Cycle()
 	new_cycle.save()
 	curr_pref = pref_list[0]
-	for i in range(len(pref_list) - 1):
-		new_node = Node(cycle=new_cycle, pref=pref_list[i], next=pref_list[i+1])
+	prev_node = Node(cycle=new_cycle, pref=pref_list[0])
+	prev_node.save()
+	first_node = prev_node
+	for i in range(1, len(pref_list)):
+		new_node = Node(cycle=new_cycle, pref=pref_list[i])
 		new_node.save()
-	new_node = Node(cycle=new_cycle, pref=pref_list[len(pref_list) - 1], next=pref_list[0])
-	new_node.save()
-	
+		prev_node.next = new_node
+		prev_node.save()
+		prev_node = new_node
+	prev_node.next = first_node
+	prev_node.save()
+
 
 ### ajax calls ###
 

@@ -85,4 +85,4 @@ class Cycle (models.Model):
 class Node (models.Model):
 	cycle = models.ForeignKey('Cycle', related_name='nodes')
 	pref = models.ForeignKey('Course_preference', related_name='nodes')
-	next = models.OneToOneField('Node', related_name='prev')
+	next = models.OneToOneField('Node', related_name='prev', null=True)
