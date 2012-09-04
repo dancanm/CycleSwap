@@ -283,3 +283,21 @@ input{
 	color: #38A;
 
 }
+
+#lb_title {
+	position:relative;
+	top:14px;
+	font-size:19px;
+}
+
+#lb_info {
+	position:relative;
+	top:7px;
+	padding:15px;
+}
+
+.successful{
+	width:120px;
+	display: inline;
+	top:120px;
+}

@@ -41,7 +41,7 @@ def create_new_user(name,email,password):
 
 def send_individual_email(student, cycle, pref):
 	course = pref.course
-	subject = "You're in a cycle! Register for " + course.title + " now."
+	subject = "You're in a swap! Register for " + course.title + " now."
 	message = "Hello " + student.name.split(" ")[0] + "." + "\r\n\r\n"
 	message += "After poring over the data, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\n\r\n"
 
