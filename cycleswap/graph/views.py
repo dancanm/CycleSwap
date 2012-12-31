@@ -49,16 +49,16 @@ def send_individual_email(student, cycle, pref):
 	curr_node = want_nodes[0]
 	for i in range(len(want_nodes)):
 		node_pref = curr_node.pref
-		node_student = pref.student
+		node_student = node_pref.student
 		if node_student == student:
 			# second person
-			message += "You want to take " + node_pref.course.name + ": " + node_pref.course.title + ", and are willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r\n"
+			message += "You want to take " + node_pref.course.name + ": " + node_pref.course.title + ", and are willing to give up " + curr_node.prev.pref.course.name + ": " + curr_node.prev.pref.course.title + " for it.\r\n"
 		else:
 			# third person
-			message += student.name + " ("+student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.next.pref.course.name + ": " + curr_node.next.pref.course.title + " for it.\r\n"
+			message += node_student.name + " ("+node_student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.prev.pref.course.name + ": " + curr_node.prev.pref.course.title + " for it.\r\n"
 		curr_node = curr_node.next.next
 
-	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\n\r\nLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of the semester!\r\n\r\n"
+	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\n\r\nLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of your semester!\r\n\r\n"
 	message += "Happy swapping,\r\n     the Courseswap team"
 	from_address = 'Pareto@courseswap.co'
 	print message
