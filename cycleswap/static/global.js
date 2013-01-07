@@ -184,11 +184,12 @@ var logged_in, name
                 logged_in = true;
                 setupUserCourses(data.courses);
                 changeToLogout(data.name);
-            }
+                name = data.name;
             $("#login table, #submit").fadeOut(200, function(){
                 $('#loggedin_text').hide().text("Welcome, " + name + ". Feel free to update your course preferences.")
                     .fadeIn(200);
             });
+            }
         }
     });
    }
@@ -237,7 +238,7 @@ var logged_in, name
         $.each(courses,function(){
             console.log(this);
             var name = this.course.name+": "+this.course.title;
-            var type = this.registered === 't' ? 'registered' : 'want';
+            var type = this.registered === 'true' ? 'registered' : 'want';
             $p.prepend(prefListing(this.course.name+": "+this.course.title, type));
         });
         numberPreferences();
