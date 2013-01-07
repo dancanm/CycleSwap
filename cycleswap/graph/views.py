@@ -126,7 +126,6 @@ def log_in(request):
 	if user:
 		login(request,user)
 		student = user.student
-		print student
 		return HttpResponse(json.dumps(student.jsonify()))
 	else:
 		return HttpResponse(json.dumps({'error':'invalid email/password!'}))
@@ -164,7 +163,7 @@ def get_user_courses_ajax(request):
 	user = request.user
 	data = {}
 	if user.is_authenticated():
-		preferences = user.student.preferences.all()
+		preferences = Course_preference.objects.filter(student=user.student).order_by('-rank')
 	else:
 		preferences = []
 	return HttpResponse(json.dumps([pref.jsonify() for pref in preferences]))
