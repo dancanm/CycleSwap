@@ -294,6 +294,7 @@ var logged_in, name
             },ops.delay);
         });
     }
+    
     function alreadySelected(name){
         var r = false;
         $("#preferences").children().each(function(){
