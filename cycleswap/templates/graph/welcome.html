@@ -18,7 +18,7 @@ $(document).ready(function(){
 	window.logged_in = {% if logged_in %}true; name="{{name}}"{% else %}false{% endif %};
 	setupSite();
 	if (logged_in){
-		$('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+		$('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences. We'll let you know when we've found a student willing to trade you for course you want.");
 	}
 });
 </script>

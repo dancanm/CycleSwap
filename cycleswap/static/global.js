@@ -168,7 +168,7 @@ var logged_in, name
         hideIt();
     $("#login #header").unbind('click').click(logOut);
     $('#name, #email, .Password').val("").blur();
-    $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
+    $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences. We'll let you know when we've found a student willing to trade you for course you want.");
     }
 
    function logIn(){

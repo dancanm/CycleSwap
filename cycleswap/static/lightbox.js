@@ -45,4 +45,5 @@
     }
 
 window.displayLightbox = displayLightbox;
+window.removeLightbox = removeLightbox;
 }());
