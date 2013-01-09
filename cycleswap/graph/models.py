@@ -79,7 +79,7 @@ class Cycle (models.Model):
 	resolution_date = models.DateTimeField(null=True)
 	resolved = models.BooleanField(default=False)
 	successful = models.NullBooleanField()
-	# nodes <= related name link to list of Nodes
+	# nodes <= related name link to list of Nodes 
 
 # Each node in a Cycle is a Node
 # Contains: a pointer to it's Cycle, a pointer to a pref, and a
