@@ -33,7 +33,7 @@ $(document).ready(function(){
 					<div id='courses_i_want_txt', class='h_description'>
 						Courses I want
 					</div>
-					<input id='course_want_input', class='autocomplete_this', type='text'>
+					<input id='course_want_input' fillertext="To start, type a course name here." class='autocomplete_this', type='text'>
 					<div id='want_results' class='results' style="display:none">
 						{% for i in 123|make_list %}
 							<div id="want_autofill_{{i}}" class="autofill ellipsis want">
@@ -47,7 +47,7 @@ $(document).ready(function(){
 					<div id='courses_im_registered_for_txt', class='h_description'>
 						Courses registered for
 					</div>
-					<input id='course_registered_input', class='autocomplete_this', type='text'>
+					<input id='course_registered_input' fillertext="Or here." class='autocomplete_this' type='text'>
 					<div id='registered_results' class='results' style="display:none;">
 						{% for i in 123|make_list %}
 							<div id="registered_autofill_{{i}}" class="autofill ellipsis registered">

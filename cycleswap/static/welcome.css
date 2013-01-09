@@ -264,9 +264,9 @@ input{
 #lightbox {
 	position: absolute;
 	z-index: 21;
-	height: 300px;
+	/* height: 300px; */
 	width: 600px;
-	background: #38A;
+	background: rgba(160, 160, 160, .8);
 	border-radius:10px;
 	-moz-box-shadow:inset 0px 0px 30px  #2B2B2B;
     -webkit-box-shadow:inset 0px 0px 30px  #2B2B2B;
@@ -296,8 +296,11 @@ input{
 	padding:15px;
 }
 
+#success_buttons_holder{
+	width:360px;
+	height:60px;
+}
+
 .successful{
-	width:120px;
 	display: inline;
-	top:120px;
 }

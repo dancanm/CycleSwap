@@ -23,6 +23,7 @@
 
     function displayLightbox(cycle_info){
         var darkbackground = createElem('div', { id: 'darkbackground' , align: 'center'});
+        var success_buttons_holder = createElem('div', {id: 'success_buttons_holder'});
         $(darkbackground).css({
             'width': $(document).width() + 'px',
             'height': $(document).height() + 'px',
@@ -30,8 +31,9 @@
         var lightbox = createElem('div', { id: 'lightbox' , align: 'center'});
         $(lightbox).append(createElem('div', {id: 'lb_title', align: 'center'}, "Good news, " + name + ". You're in a swap."));
         $(lightbox).append(createElem('div', {id: 'lb_info', align: 'center'}, cycle_info));
-        $(lightbox).append(createElem('div', {id: 'unsuccessful', className: 'h_description button pointer successful'}, "Unsuccessful"));
-        $(lightbox).append(createElem('div', {id: 'successful', className: 'h_description button pointer successful'}, "Successful"));
+        $(lightbox).append(success_buttons_holder);
+        $(success_buttons_holder).append(createElem('div', {id: 'unsuccessful', className: 'h_description button pointer successful'}, "Unsuccessful"));
+        $(success_buttons_holder).append(createElem('div', {id: 'successful', className: 'h_description button pointer successful'}, "Successful"));
         $('body').append(darkbackground);
         $(darkbackground).append(lightbox);
 

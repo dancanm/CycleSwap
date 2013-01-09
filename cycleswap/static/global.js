@@ -254,19 +254,21 @@ var logged_in, name
 	}
 
 	function getUserCourses(){
-		$.ajax({
-            type: 'GET',
-            url: '/get-user-courses-ajax/',
-            data: {	
-                'csrfmiddlewaretoken': csrfTOKEN,
-            },
-            dataType:'json',
-            success: function(data){
-                console.log("here's the course data");
-                console.log(data);
-                setupUserCourses(data);
-            }
-        });
+        if(logged_in){
+    		$.ajax({
+                type: 'GET',
+                url: '/get-user-courses-ajax/',
+                data: {	
+                    'csrfmiddlewaretoken': csrfTOKEN,
+                },
+                dataType:'json',
+                success: function(data){
+                    console.log("here's the course data");
+                    console.log(data);
+                    setupUserCourses(data);
+                }
+            });
+        }
 	}
 
     $.fn.auto = function(options){
@@ -340,7 +342,9 @@ var logged_in, name
     }
 	function setupSite(){
 		setupUI();
-		getUserCourses();
+        if(logged_in){
+	       getUserCourses();
+        }
         setupAutocomplete();
 	}
 
