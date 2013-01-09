@@ -56,12 +56,18 @@ var logged_in, name
             $("#submit").click();
         });
         //clicking
-        $("#login #submit").click(function(){
-            logIn();
+        $("#login #submit").unbind('click').click(function(){
+            register();
         });
         $("#submit_button").click(function(){
             if(logged_in){
                 saveCourses();
+                //pulsate
+                $("#preference_interface").animate({
+                        boxShadow: '0px 0px 34px  #000000'
+                    },200,function(){
+                        $(this).animate({boxShadow:'0px 0px 34px #2B2B2B'})
+                });
             }else {
                 changeToRegister();
             }
@@ -115,9 +121,9 @@ var logged_in, name
         if($("#login_container #header").text()=='Register'){
             //pulsate
             $("#login").animate({
-                boxShadow: '0px 0px 25px  #000000'
-            },200,function(){
-                $(this).animate({boxShadow:'0px 0px 25px #2B2B2B'})
+                    boxShadow: '0px 0px 25px  #000000'
+                },200,function(){
+                    $(this).animate({boxShadow:'0px 0px 25px #2B2B2B'})
             });
         }else{
             //open up the registration jawn
@@ -192,6 +198,7 @@ var logged_in, name
             }
         }
     });
+
    }
    function logOut(){
         $.post('/log-out/',{'csrfmiddlewaretoken': csrfTOKEN}, function(){
@@ -220,13 +227,15 @@ var logged_in, name
                 if(data.error){
                     console.log(data);
                 }else{
+                    logged_in = true;
                     name = $("#name").val();
                     changeToLogout(name);
                     saveCourses();
                     $('#loggedin_text').text("Welcome, " + name + ". Feel free to update your course preferences.");
                 }
             }
-        })
+        });
+
    }
    function prefListing(v,type){
         return "<div class='autofill ellipsis "+type+"' name='"+v+"'><span>"+v+"</span><div class='delete_button' style='display:none'></div></div>"
