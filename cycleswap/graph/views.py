@@ -58,9 +58,9 @@ def send_individual_email(student, cycle, pref):
 			message += node_student.name + " ("+node_student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.prev.pref.course.name + ": " + curr_node.prev.pref.course.title + " for it.\r\n"
 		curr_node = curr_node.next.next
 
-	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap simultaneously drops the course they're giving away, then adds the course they want.\r\n\r\nLet us know how it went on courseswap.co before you make another swap, and enjoy the rest of your semester!\r\n\r\n"
-	message += "Happy swapping,\r\n     the Courseswap team"
-	from_address = 'Pareto@courseswap.co'
+	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap should log into banner (boca.brown.edu), simultaneously drop the course they're giving away, then add the course they want.\r\n\r\nLet us know how it went on courseswap.co, and enjoy the rest of your semester!\r\n\r\n"
+	message += "Happy swapping,\r\nthe Courseswap team"
+	from_address = 'The Courseswap Team <Pareto@courseswap.co>'
 	print message
 	student.cycle_info = message
 	student.save()

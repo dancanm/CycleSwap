@@ -59,9 +59,11 @@ class Course_preference (models.Model):
 
 	def __unicode__(self):
 		if self.registered:
-			return self.student.__unicode__() + " has " + self.course.__unicode__()
+			returntxt = self.student.__unicode__() + " has " + self.course.__unicode__()
 		else:
-			return self.student.__unicode__() + " wants " + self.course.__unicode__()
+			returntxt = self.student.__unicode__() + " wants " + self.course.__unicode__()
+		if self.is_in_cycle then returntxt+=', but is already in a cycle'
+		return returntxt
 
 	def jsonify(self):
 		return {
