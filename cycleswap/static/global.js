@@ -291,7 +291,7 @@ var logged_in, name
             'div' : this,//registered
             'type' : this.attr('type'),
             'courses' : [],
-            'delay' : 400
+            'delay' : 50
         },options);
         var input = ops.div.find('input');
         var results = ops.div.find('.results');
