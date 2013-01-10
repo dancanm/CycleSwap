@@ -17,7 +17,7 @@
         });
         $('#lightbox').css({
             'left': ($(window).width() - 600) / 2,
-            'top': ($(window).height() - 300) / 2
+            'top': 110
         });
     }
 
@@ -42,6 +42,9 @@
                     e.stopPropagation();
                 });
         recenterLightbox();
+        window.onresize = function(){
+            recenterLightbox();
+        };
 
     }
 
