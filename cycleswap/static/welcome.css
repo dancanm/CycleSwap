@@ -294,10 +294,10 @@ input{
 	position:relative;
 	top:7px;
 	padding:15px;
+	margin-bottom: 0px;
 }
 
 #success_buttons_holder{
-	width:360px;
 	height:60px;
 }
 
