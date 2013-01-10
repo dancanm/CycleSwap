@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 import json
 from django.core.mail import send_mail
 import string
+from datetime import datetime
 
 ###  utils ###
 def import_courses():
@@ -190,6 +191,30 @@ def get_user_courses_ajax(request):
 def get_course_list_ajax(request):
 	list_of_courses = [str(course) for course in Course.objects.all()]
 	return HttpResponse(json.dumps(list_of_courses))
+
+def resolve_cycle_ajax(request):
+	user = request.user
+	success_bool = request.POST['success_bool']
+	# find the Cycle
+	cycle = user.student.preferences.filter(is_in_cycle=True)[0].nodes.all()[0].cycle
+	# fill in the Cycle's info
+	cycle.resolution_date = datetime.now()
+	cycle.resolved = True
+	if success_bool == 't':
+		cycle.successful = True
+	else:
+		cycle.successful = False
+	cycle.save()
+	# delete all involved Students' cycle_info, then delete the Cycle's Course_preferences,
+	# then delete its Nodes
+	nodes = cycle.nodes.all()
+	for node in nodes:
+		node.pref.student.cycle_info = ""
+		node.pref.student.save()
+		node.pref.delete()
+	nodes.delete()
+
+	return HttpResponse(json.dumps({}))
 
 ### algorithms ##
 

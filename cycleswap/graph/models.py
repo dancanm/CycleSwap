@@ -7,6 +7,7 @@ class Student (models.Model):
 	courses = models.ManyToManyField('Course', through='Course_preference', blank=True,null=True)
 	school = models.CharField(max_length=10, default="brown")
 	cycle_info = models.TextField(null=True, blank=True)
+	# preferences <- related name link to list of Course_preferences
 	
 	def __unicode__(self):
 		return self.name
@@ -55,7 +56,7 @@ class Course_preference (models.Model):
 	registered = models.BooleanField()
 	rank = models.IntegerField()
 	is_in_cycle = models.BooleanField(default=False)
-	# nodes <= related name link to list of Nodes
+	# nodes <- related name link to list of Nodes
 
 	def __unicode__(self):
 		if self.registered:
@@ -88,5 +89,5 @@ class Cycle (models.Model):
 #   pointer to the next pref
 class Node (models.Model):
 	cycle = models.ForeignKey('Cycle', related_name='nodes')
-	pref = models.ForeignKey('Course_preference', related_name='nodes')
-	next = models.OneToOneField('Node', related_name='prev', null=True)
+	pref = models.ForeignKey('Course_preference', null=True, blank=True, related_name='nodes', on_delete=models.SET_NULL)
+	next = models.OneToOneField('Node', related_name='prev', null=True, blank=True)

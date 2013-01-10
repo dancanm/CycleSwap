@@ -379,6 +379,27 @@ var logged_in, name
     function triggerLightbox(cycle_info){
         displayLightbox(cycle_info);
         $('#logout_incycle').click(logOut);
+        $('#unsuccessful').click(function(){
+            resolveCycle('f');
+        });
+        $('#successful').click(function(){
+            resolveCycle('t');
+        });
+    }
+
+    function resolveCycle(success_bool){
+        $.ajax({
+            type: 'POST',
+            url: '/resolve-cycle-ajax/',
+            data: { 
+                'csrfmiddlewaretoken': csrfTOKEN,
+                'success_bool': success_bool
+            },
+            success: function(){
+                getUserCourses();
+                removeLightbox();
+            }
+        });
     }
 
 

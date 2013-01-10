@@ -21,5 +21,5 @@ urlpatterns = patterns('',
     url(r'^save-courses-ajax/', 'graph.views.save_courses_ajax'),
     url(r'^get-user-courses-ajax/', 'graph.views.get_user_courses_ajax'),
     url(r'^get-course-list-ajax/', 'graph.views.get_course_list_ajax'),
-
+    url(r'^resolve-cycle-ajax/', 'graph.views.resolve_cycle_ajax'),
 )
