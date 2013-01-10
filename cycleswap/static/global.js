@@ -6,6 +6,14 @@
 var logged_in, name
 (function(){
 
+    function setupSite(){
+        setupUI();
+        if(logged_in){
+           getUserCourses();
+        }
+        setupAutocomplete();
+    }
+
     $.fn.enter = function(callback){
         this.keydown(function(e){
             var code = e.keyCode || e.which;
@@ -185,22 +193,26 @@ var logged_in, name
             console.log(data);
             if(data.error){
                 console.log('login unsuccessful');
-                //error message
+                //display error message
             }else{
                 logged_in = true;
                 setupUserCourses(data.courses);
                 changeToLogout(data.name);
                 name = data.name;
-            $("#login table, #submit").fadeOut(200, function(){
-                $('#loggedin_text').hide().text("Welcome, " + name + ". Feel free to update your course preferences.")
-                    .fadeIn(200);
-            });
+                $("#login table, #submit").fadeOut(200, function(){
+                    $('#loggedin_text').hide().text("Welcome, " + name + ". Feel free to update your course preferences.")
+                        .fadeIn(200);
+                });
+                if(data.is_in_cycle){
+                    triggerLightbox(data.cycle_info);
+                }
             }
         }
     });
 
    }
    function logOut(){
+        removeLightbox();
         $.post('/log-out/',{'csrfmiddlewaretoken': csrfTOKEN}, function(){
             $("#app_body").fadeOut(500,function(){
                 logged_in = false;
@@ -264,8 +276,11 @@ var logged_in, name
                 dataType:'json',
                 success: function(data){
                     console.log("here's the course data");
-                    console.log(data);
-                    setupUserCourses(data);
+                    console.log(data.prefs);
+                    setupUserCourses(data.prefs);
+                    if (data.is_in_cycle == 't'){
+                        triggerLightbox(data.cycle_info);
+                    }
                 }
             });
         }
@@ -340,13 +355,6 @@ var logged_in, name
             });
         });
     }
-	function setupSite(){
-		setupUI();
-        if(logged_in){
-	       getUserCourses();
-        }
-        setupAutocomplete();
-	}
 
 	function saveCourses(){
         courses = []
@@ -367,6 +375,13 @@ var logged_in, name
             }
         });
 	}
+
+    function triggerLightbox(cycle_info){
+        displayLightbox(cycle_info);
+        $('#logout_incycle').click(logOut);
+    }
+
+
 
 
 window.setupSite = setupSite;

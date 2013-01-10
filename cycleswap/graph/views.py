@@ -5,6 +5,7 @@ from graph.models import *
 from django.contrib.auth import authenticate, login, logout
 import json
 from django.core.mail import send_mail
+import string
 
 ###  utils ###
 def import_courses():
@@ -42,8 +43,7 @@ def create_new_user(name,email,password):
 def send_individual_email(student, cycle, pref):
 	course = pref.course
 	subject = "You're in a swap! Register for " + course.title + " now."
-	message = "Hello " + student.name.split(" ")[0] + "." + "\r\n\r\n"
-	message += "After poring over the data, we've found a swap cycle which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\n\r\n"
+	message = "After poring over the data, we've found a trade which will allow you to register for " + course.name + ": " + course.title + ". Here's how it works:" + "\r\n\r\n"
 
 	want_nodes = cycle.nodes.filter(pref__registered=False)
 	curr_node = want_nodes[0]
@@ -58,15 +58,22 @@ def send_individual_email(student, cycle, pref):
 			message += node_student.name + " ("+node_student.user.email+") wants to take " + node_pref.course.name + ": " + node_pref.course.title + ", and is willing to give up " + curr_node.prev.pref.course.name + ": " + curr_node.prev.pref.course.title + " for it.\r\n"
 		curr_node = curr_node.next.next
 
-	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap should log into banner (boca.brown.edu), simultaneously drop the course they're giving away, then add the course they want.\r\n\r\nLet us know how it went on courseswap.co, and enjoy the rest of your semester!\r\n\r\n"
-	message += "Happy swapping,\r\nthe Courseswap team"
+	message += "\r\nCorrespond with your peers via email and pick a time to swap. It's a good idea to complete the swap in person to ensure that nobody backs out, but this isn't necessary. At the chosen time, everybody in the swap should log into banner (boca.brown.edu), simultaneously drop the course they're giving away, then add the course they want.\r\n\r\n"
+
+	message_with_linebreaks = string.replace(message,"\r\n","<br>") + "Let us know below whether the trade worked out in order to access CourseSwap again."
+	student.cycle_info = message_with_linebreaks
+	student.save()
+	cycle.info = message
+	cycle.save()
+
+	message += "Let us know how it went on courseswap.co, and enjoy the rest of your semester!\r\n\r\nHappy swapping,\r\nthe Courseswap team"
 
 	message += "\r\n\r\nP.S. If you're looking for an easy way to find a time for everybody to meet, consider using Calendar Clash (www.calclash.com). Calendar Clash is a tool created by two former Brown students that makes it easy to set up meetings between people with busy schedules."
+
+	message = "Hello " + student.name.split(" ")[0] + "." + "\r\n\r\n" + message
 	
 	from_address = 'The Courseswap Team <Pareto@courseswap.co>'
 	print message
-	student.cycle_info = message
-	student.save()
 	send_mail(subject, message, from_address, [student.user.email], fail_silently=False)
 
 
@@ -169,11 +176,16 @@ def save_courses_ajax(request):
 def get_user_courses_ajax(request):
 	user = request.user
 	data = {}
+	is_in_cycle = 'f'
+	cycle_info = ''
 	if user.is_authenticated():
 		preferences = Course_preference.objects.filter(student=user.student).order_by('-rank')
+		if user.student.is_in_cycle():
+			is_in_cycle = 't'
+			cycle_info = user.student.cycle_info
 	else:
 		preferences = []
-	return HttpResponse(json.dumps([pref.jsonify() for pref in preferences]))
+	return HttpResponse(json.dumps({'prefs': [pref.jsonify() for pref in preferences], 'is_in_cycle': is_in_cycle, 'cycle_info': cycle_info}))
 
 def get_course_list_ajax(request):
 	list_of_courses = [str(course) for course in Course.objects.all()]

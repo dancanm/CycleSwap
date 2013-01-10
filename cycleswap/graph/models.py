@@ -80,6 +80,7 @@ class Cycle (models.Model):
 	resolution_date = models.DateTimeField(null=True)
 	resolved = models.BooleanField(default=False)
 	successful = models.NullBooleanField()
+	info = models.TextField(null=True, blank=True)
 	# nodes <= related name link to list of Nodes 
 
 # Each node in a Cycle is a Node
