@@ -188,9 +188,10 @@ def get_user_courses_ajax(request):
 		preferences = []
 	return HttpResponse(json.dumps({'prefs': [pref.jsonify() for pref in preferences], 'is_in_cycle': is_in_cycle, 'cycle_info': cycle_info}))
 
-def get_course_list_ajax(request):
-	list_of_courses = [str(course) for course in Course.objects.all()]
-	return HttpResponse(json.dumps(list_of_courses))
+# defunct: replaced with a static txt file, total waste of memory
+#def get_course_list_ajax(request):
+#	list_of_courses = [str(course) for course in Course.objects.all()]
+#	return HttpResponse(json.dumps(list_of_courses))
 
 def resolve_cycle_ajax(request):
 	user = request.user
