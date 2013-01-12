@@ -328,16 +328,12 @@ var logged_in, name
         });
         return r;
     }
+
     function setupAutocomplete(){
-        $.ajax({
-            type: 'GET',
-            url: '/get-course-list-ajax/',
-            data: {},
-            dataType : 'json',
-            success: function(data){
-                $("#courses_want").auto({'courses' : data});
-                $("#courses_registered").auto({'courses': data,});
-            }
+        $.get('public/courses_json.txt', function(data){
+            json_data = $.parseJSON(data);
+            $("#courses_want").auto({'courses' : json_data});
+            $("#courses_registered").auto({'courses': json_data});
         });
     }
 
