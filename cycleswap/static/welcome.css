@@ -167,11 +167,15 @@ input{
 }
 
 #submit_button {
-	position:absolute;
-	bottom:16px;
+	position:relative;
 	cursor: pointer;
 	width:216px;
 	padding-left:17px;
+}
+
+#submit_button_div{
+	position:absolute;
+	bottom:16px;
 }
 
 .autocomplete_this {
@@ -304,3 +308,4 @@ input{
 .successful{
 	display: inline;
 }
+
